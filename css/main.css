@@ -1,0 +1,30 @@
+.bg{
+	background-image: url('../img/bg.png');
+	background-size: cover;
+	background-position: left;
+}
+
+.details{
+	text-shadow: 3px 4px 12px black;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.header{
+	background-color: black;
+	text-shadow: 3px 4px 12px black;
+	padding-top: 10px;
+}
+
+@media (min-width: 992px) {
+ 
+  .header{
+	background-color: transparent;
+	padding-top: 10px;
+	}
+
+}
