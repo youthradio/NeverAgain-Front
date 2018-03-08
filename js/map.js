@@ -22,7 +22,7 @@ var tooltip = d3.select("body")
   .attr("class", "tooltip")
   .style("opacity", 0);
 
-d3.json("data/us.json", function(us) {
+d3.json("assets/data/us.json", function(us) {
 
   svg.append("g").selectAll(".states")
     .data(topojson.feature(us, us.objects.states).features)
@@ -37,7 +37,7 @@ d3.json("data/us.json", function(us) {
     .attr("class", "state-borders")
     .attr("d", path);
   //load marker
-  d3.xml("data/map-marker.svg", function(xml) {
+  d3.xml("assets/map-marker.svg", function(xml) {
     var marker = document.importNode(xml.documentElement, true);
 
     //load data
@@ -63,7 +63,7 @@ d3.json("data/us.json", function(us) {
         })
         .transition()
         .ease(d3.easeBounce)
-        .duration(4000)
+        .duration(1500)
         // .attr("transform", function(post) {
         //   var scale = 0.05;
         //   return "translate(" + (projection(post.geo.geo)[0] - scale * this.getBBox().width / 2) + "," + (projection(post.geo.geo)[1] - scale * this.getBBox().height) + ")scale(" + scale + "," + scale + ")";

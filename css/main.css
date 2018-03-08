@@ -38,7 +38,7 @@
   font-weight:normal;
   font-size:40px;
   margin-top:40px
-  
+
   border:solid white 3px;
 }
 
@@ -69,19 +69,18 @@
 h1{
   font-size:50px;
 }
-.map-1 {
+/* .map-1 {
     filter: drop-shadow(5px 5px 15px #222);
     max-width: 80%;
     max-height: 80%;
-}
+} */
 
 html,
-body,
-.container-fluid {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    font-family: 'Oswald';
+body {
+   width: auto;
+   height: 100%;
+   overflow: hidden;
+   font-family: 'Oswald';
 }
 
 #social-content {
@@ -162,4 +161,57 @@ body,
     .map-1 {
         padding-top: 100px;
     }
+}
+
+/* Map Viz CSS */
+/* https://coolors.co/fdffff-b10f2e-570000-280000-de7c5a */
+.marker {
+    opacity: 0.9;
+    fill: #b10f2e;
+    /* -webkit-filter: drop-shadow( 1px 1px 2px #000 );
+    filter: drop-shadow( 1px 1px 2px #000 ); */
+}
+.marker:hover {
+    fill: #c65067;
+    opacity: 1.0;
+}
+.states {
+  stroke: #0a090c;
+  stroke-width: 1px;
+  fill: #f0edee
+  stroke-linejoin: round;
+}
+.states :hover {
+  fill: red;
+  opacity: 1.0;
+}
+.state-borders {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+/* Make the chart container fill the page using CSS. */
+#map {
+  fill: #fdffff;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  -webkit-filter: drop-shadow( 3px 3px 2px #000 );
+  filter: drop-shadow( 3px 3px 2px #000 );
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 10px;
+    font: 1rem sans-serif;
+    color: #fdffff;
+    background: #280000;
+    border: 0px;
+    border-radius: 5px;
+    pointer-events: none;
 }
