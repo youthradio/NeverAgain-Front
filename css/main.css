@@ -1,13 +1,74 @@
+/* div{
+  border: solid 1px ;
+} */
+/*Splash Page CSS */
+
+
+
+#splash-bg{
+  background-image:url("https://cdn.vox-cdn.com/thumbor/WU7SDFQiUYd2j562mrSxZkXU_50=/0x0:3000x2000/1200x800/filters:focal(1251x583:1731x1063)/cdn.vox-cdn.com/uploads/chorus_image/image/58830911/922441420.jpg.0.jpg");
+}
+#splash-color{
+  background-color:rgba(44, 34, 93, 0.8);
+}
+#splash-title{
+  margin-top:125px
+
+}
+#splash-title{
+  font-weight:bold;
+  font-size:75px;
+  color:white;
+
+}
+#splash-text{
+  font-weight:normal;
+  font-size:25px;
+  color:white;
+  margin-top:20px
+}
+.btn{
+  font-weight:normal;
+  font-size:40px;
+  color:white;
+  margin-top:40px
+  border:solid white 3px;
+}
+.btn:hover{
+  font-weight:normal;
+  font-size:40px;
+  margin-top:40px
+  
+  border:solid white 3px;
+}
+
+
+/*Main Page CSS */
+
+#title{
+  background-color:rgba(87, 72, 155, 0.73);
+
+}
 .bg {
     background-image: url('../img/bg.png');
     background-size: cover;
-    background-position: left;
+    background-position:center;
 }
-
-.details {
-    text-shadow: 3px 4px 12px black;
+.social-logos{
+  display:none;
 }
-
+#yrlogofull{
+  display:none;
+}
+#yrlogocircle{
+  display:block;
+}
+.map-1 {
+    padding-top: 50px;
+}
+h1{
+  font-size:50px;
+}
 .map-1 {
     filter: drop-shadow(5px 5px 15px #222);
     max-width: 80%;
@@ -46,12 +107,12 @@ body,
 
 .header {
     background-color: black;
-    text-shadow: 3px 4px 12px black;
+    text-shadow: 3px 4px 8px #505050;
     padding-top: 10px;
 }
 
 @media (max-width: 414px) {
-    .details h1,
+    .details
     h2,
     h3 {
         font-size: 25px !important;
@@ -72,39 +133,32 @@ body,
         max-height: 80%;
     }
 
-    .header h2 {
 
-        font-size: 18px !important;
     }
     .header {
-    	height: 50px;
+
     	padding-top: 0px;
     }
 }
 
 @media (max-width: 992px) {
-    .details h1,
-    h2,
-    h3 {
-        font-size: 30px !important;
-    }
-}
 
+}
 @media (min-width: 992px) {
 
     .header {
         background-color: transparent;
         padding-top: 10px;
     }
-
-    /*#social-content{
-	max-height: 75%;
-	}*/
-    .header h2 {
-
-        font-size: 50px !important;
+    .social-logos{
+      display:inline-block;
     }
-
+    #yrlogofull{
+      display:block;
+    }
+    #yrlogocircle{
+      display:none;
+    }
     .map-1 {
         padding-top: 100px;
     }
