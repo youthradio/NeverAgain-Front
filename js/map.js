@@ -49,7 +49,7 @@ d3.json("assets/data/us.json", function(us) {
                         .html(function(post){
                           if(post.social.length > 0){
                             var s = document.createElement("script");
-                            s.src = (post.social[0].type == "instagram") ? "//www.instagram.com/embed.js" : "//platform.twitter.com/widgets.js";
+                            s.src = (post.social[0].type == "instagram") ? "https://www.instagram.com/embed.js" : "https://platform.twitter.com/widgets.js";
                             s.async = true;
                             this.appendChild(s);
                           }
