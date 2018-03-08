@@ -42,6 +42,19 @@ d3.json("assets/data/us.json", function(us) {
 
     //load data
     d3.json("https://map.ou.lc/api/posts/all", function(data) {
+      var timeline = d3.select('#social-content').selectAll('div')
+                        .data(data).enter()
+                        .append('div')
+                        .attr('id', function(p){return p.slug})
+                        .html(function(post){
+                          if(post.social.length > 0){
+                            var s = document.createElement("script");
+                            s.src = (post.social[0].type == "instagram") ? "//www.instagram.com/embed.js" : "//platform.twitter.com/widgets.js";
+                            s.async = true;
+                            this.appendChild(s);
+                          }
+                          return ("<h3 id='location' class='display-4'>" + post.geo.suburb +"</h3>" + (post.social.length > 0 ? post.social[0].embed:""));
+                        });
       var markers = svg.selectAll("marker")
         .data(data.filter(e => e.geo?((e.geo.geo[0] || e.geo.geo[1]) != 0):false)).enter()
         .append('svg')
