@@ -45,7 +45,7 @@ d3.json("assets/data/us.json", function(us) {
       var timeline = d3.select('#social-content').selectAll('div')
                         .data(data).enter()
                         .append('div')
-                        .attr('id', function(p){return p.slug})
+                        .attr('id', function(p){return "post-" +p.slug})
                         .html(function(post){
                           if(post.social.length > 0){
                             var s = document.createElement("script");
@@ -66,6 +66,8 @@ d3.json("assets/data/us.json", function(us) {
         .attr("id", function(e){ return e.slug})
         .on("mouseover", mouseOver)
         .on("mouseout", mouseOut)
+        .on("click", mouseClick)
+
         // .attr("transform", function(post) {
         //   var scale = 0.15;
         //   return "translate(" + (projection(post.geo.geo)[0] - scale * this.getBBox().width / 2) + "," + (-Math.random() * 1000) + ")scale(" + scale + "," + scale + ")";
@@ -100,7 +102,11 @@ d3.json("assets/data/us.json", function(us) {
           });
 
       }
-
+      function mouseClick(e, i) {
+        var top = document.getElementById("post-"+e.slug).offsetTop;
+        var ele = document.getElementById("social-content");
+        ele.scrollTo(0, top);
+      }
       function mouseOut(d, i) {
           tooltip.transition()
             .duration(500)

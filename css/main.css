@@ -3,6 +3,7 @@
 } */
 /*Splash Page CSS */
 
+iframe { overflow:hidden; }
 
 
 #splash-bg{
@@ -87,6 +88,7 @@ body {
     max-height: 760px;
     overflow-y: scroll;
     overflow-x: hidden;
+
     -webkit-overflow-scrolling: touch;
 }
 
