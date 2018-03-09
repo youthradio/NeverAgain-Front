@@ -86,7 +86,7 @@ body {
 }
 
 #social-content {
-    max-height: 760px;
+    max-height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden;
     direction: rtl;
@@ -118,9 +118,6 @@ body {
     h2,
     h3 {
         font-size: 25px !important;
-    }
-    #social-content {
-        max-height: 370px;
     }
     .map-1 {
         max-width: 60%;
