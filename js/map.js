@@ -7,7 +7,8 @@ var projection = d3.geoAlbersUsa().translate([width / 2, height / 2]);
 var path = d3.geoPath(projection);
 
 // load the external svg from a file
-
+const MARKER_S_MIN = 0.05
+const MARKER_S_MAX = 0.15
 
 svg.attr("width", width)
   .attr("height", height);
@@ -80,8 +81,7 @@ d3.json("assets/data/us.json", function(us) {
         //   return "translate(" + (projection(post.geo.geo)[0] - scale * this.getBBox().width / 2) + "," + (-Math.random() * 1000) + ")scale(" + scale + "," + scale + ")";
         // })
         .attr("transform", function(post) {
-          var scale = 0.15;
-          return "translate(" + (projection(post.geo.geo)[0]) + "," + (-Math.random() * 1000) + ")scale(" + scale + "," + scale + ")";
+          return "translate(" + (projection(post.geo.geo)[0]) + "," + (-Math.random() * 1000) + ")scale(" + MARKER_S_MAX + "," + MARKER_S_MAX + ")";
         })
         .transition()
         .ease(d3.easeBounce)
@@ -91,37 +91,51 @@ d3.json("assets/data/us.json", function(us) {
         //   return "translate(" + (projection(post.geo.geo)[0] - scale * this.getBBox().width / 2) + "," + (projection(post.geo.geo)[1] - scale * this.getBBox().height) + ")scale(" + scale + "," + scale + ")";
         // });
         .attr("transform", function(post) {
-          var scale = 0.05;
-          return "translate(" + (projection(post.geo.geo)[0]) + "," + (projection(post.geo.geo)[1]) + ")scale(" + scale + "," + scale + ")";
+          return "translate(" + (projection(post.geo.geo)[0]) + "," + (projection(post.geo.geo)[1]) + ")scale(" + MARKER_S_MIN + "," + MARKER_S_MIN + ")";
         });
 
-      var scrollEvent = d3.select(window).on("wheel.zoom",scroll);
-      var currentPostId = 0;
-      function scroll(e){
+      var scrollEvent = d3.select(window).on("wheel.zoom",mouseWheelScrool);
+      function mouseWheelScrool(e){
         d3.event.preventDefault();
         var ele = document.getElementById("social-content");
-        var h = ele.getBoundingClientRect().height;
         ele.scrollTop += d3.event.deltaY;
+      }
 
+      var currentPostId = -1;
+      var lastPostId = -1;
+      document.getElementById("social-content").addEventListener("scroll", function (event) {
+        var box = this;
+        var h = box.getBoundingClientRect().height;
         index.forEach(function(p,i){
           var visibleEle = document.getElementById("post-" + p);
           var visibleElerec = visibleEle.getBoundingClientRect();
-          if((ele.scrollTop + h) >= visibleEle.offsetTop && (ele.scrollTop + h) <= (visibleEle.offsetTop + visibleElerec.height)){
+          if((box.scrollTop + h/2) >= visibleEle.offsetTop && (box.scrollTop + h/2) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
+            lastPostId = currentPostId;
             currentPostId = i;
-            console.log(currentPostId);
-          };
+
+            var markerOn = d3.select("#" + p);
+            var transform = markerOn.attr("transform");
+            var scaleV = 0.08;
+            markerOn
+              .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]))
+              .transition()
+              .ease(d3.easeExp)
+              .duration(800)
+              .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]));
+
+            if(lastPostId !== -1){
+              var markerOff = d3.select("#" + index[lastPostId]);
+              var transformOff = markerOff.attr("transform");
+              markerOff
+                .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
+                .transition()
+                .ease(d3.easeExp)
+                .duration(800)
+                .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
+            }
+          }
         });
-
-      }
-
-      // if(ele.scrollTop > rec.top && ele.scrollTop < rec.bottom){
-      //     console.log("Over -->", ele.scrollTop);
-      //     var m = d3.select( "#" + index[currentPostId]);
-      //     var transform = m.attr("transform");
-      //     m.attr("transform", function(d){
-      //         return getTransform(transform, "translate") + getTransform(transform, "scale", [0.08, 0.08]);
-      //     });
-      // };
+      })
 
       function mouseOver(e, i) {
           tooltip.transition()
@@ -131,9 +145,8 @@ d3.json("assets/data/us.json", function(us) {
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY - 28) + "px");
           var transform = d3.select(this).attr("transform");
-          d3.select(this).attr("transform", function(d){
-              return getTransform(transform, "translate") + getTransform(transform, "scale", [0.05, 0.05]);
-          });
+          var scaleV = 0.06;
+          d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]));
 
       }
       function mouseClick(e, i) {
@@ -146,15 +159,19 @@ d3.json("assets/data/us.json", function(us) {
             .duration(500)
             .style("opacity", 0);
             var transform = d3.select(this).attr("transform");
-            d3.select(this).attr("transform", getTransform(transform, "translate") + getTransform(transform, "scale", [-0.05, -0.05]));
+            var scaleV = -0.06;
+            d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
       }
     });
   });
 });
-
-function getTransform(str, mode, delta = [0,0]){
+//parse values to array for transform modes, scale, transform,etc
+function getTransform(str, mode){
    var value = str.match(new RegExp(mode + "\\(([^)]+)\\)"))[1].split(",");
-     return(mode + "(" + value.map(function(e,i){ return Number(e) + Number(delta[i])}).join(',') + ")");
+   return value.map(function(e){return Number(e)});
+}
+function setTransform(mode, value){
+     return mode + "(" +  value.join(',') + ")";
 }
 
 function resize() {
