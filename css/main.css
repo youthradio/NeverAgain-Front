@@ -3,7 +3,7 @@
 } */
 /*Splash Page CSS */
 
-iframe { overflow:hidden; }
+/* iframe { overflow:hidden; } */
 
 
 #splash-bg{
@@ -82,13 +82,14 @@ body {
    height: 100%;
    overflow: hidden;
    font-family: 'Oswald';
+   -webkit-overflow-scrolling: touch;
 }
 
 #social-content {
     max-height: 760px;
     overflow-y: scroll;
     overflow-x: hidden;
-
+    direction: rtl;
     -webkit-overflow-scrolling: touch;
 }
 

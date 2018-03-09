@@ -42,10 +42,16 @@ d3.json("assets/data/us.json", function(us) {
 
     //load data
     d3.json("https://map.ou.lc/api/posts/all", function(data) {
+      var index = [];
       var timeline = d3.select('#social-content').selectAll('div')
                         .data(data).enter()
                         .append('div')
-                        .attr('id', function(p){return "post-" +p.slug})
+                        .attr('class', 'post')
+                        .attr('id', function(p){
+                          var id = p.slug;
+                          index.push(id);
+                          return "post-" + id;
+                        })
                         .html(function(post){
                           if(post.social.length > 0){
                             var s = document.createElement("script");
@@ -55,6 +61,7 @@ d3.json("assets/data/us.json", function(us) {
                           }
                           return ("<h3 id='location' class='display-4'>" + post.geo.suburb +"</h3>" + (post.social.length > 0 ? post.social[0].embed:""));
                         });
+
       var markers = svg.selectAll("marker")
         .data(data.filter(e => e.geo?((e.geo.geo[0] || e.geo.geo[1]) != 0):false)).enter()
         .append('svg')
@@ -88,6 +95,39 @@ d3.json("assets/data/us.json", function(us) {
           return "translate(" + (projection(post.geo.geo)[0]) + "," + (projection(post.geo.geo)[1]) + ")scale(" + scale + "," + scale + ")";
         });
 
+      var scrollEvent = d3.select(window).on("wheel.zoom",scroll);
+      var currentPostId = 0;
+      function scroll(e){
+        d3.event.preventDefault();
+        var ele = document.getElementById("social-content");
+        ele.scrollTop += d3.event.deltaY;
+        // console.log(currentPostId, visibleEleTop , ele.scrollTop);
+        index.forEach(function(p,i){
+          var visibleEle = document.getElementById("post-" + p);
+          var rec = visibleEle.getBoundingClientRect();
+          if(ele.scrollTop  > rec.top && ele.scrollTop < rec.bottom){
+            currentPostId = i;
+            console.log(currentPostId);
+            var m = d3.select( "#" + index[currentPostId]);
+            var transform = m.attr("transform");
+            var scale = m.attr("transform");
+            m.attr("transform", function(d){
+                return getTransform(transform, "translate") + getTransform(transform, "scale", [0.01, 0.01]);
+            });
+          };
+        });
+
+      }
+
+      // if(ele.scrollTop > rec.top && ele.scrollTop < rec.bottom){
+      //     console.log("Over -->", ele.scrollTop);
+      //     var m = d3.select( "#" + index[currentPostId]);
+      //     var transform = m.attr("transform");
+      //     m.attr("transform", function(d){
+      //         return getTransform(transform, "translate") + getTransform(transform, "scale", [0.08, 0.08]);
+      //     });
+      // };
+
       function mouseOver(e, i) {
           tooltip.transition()
           .duration(200)
@@ -97,7 +137,6 @@ d3.json("assets/data/us.json", function(us) {
           .style("top", (d3.event.pageY - 28) + "px");
           var transform = d3.select(this).attr("transform");
           d3.select(this).attr("transform", function(d){
-              console.log(this);
               return getTransform(transform, "translate") + getTransform(transform, "scale", [0.05, 0.05]);
           });
 
