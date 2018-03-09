@@ -53,15 +53,18 @@ d3.json("assets/data/us.json", function(us) {
                           index.push(id);
                           return "post-" + id;
                         })
+                        .attr('data-social', function(post){ if(post.social.length > 0){ return post.social[0].type }})
                         .html(function(post){
-                          if(post.social.length > 0){
-                            var s = document.createElement("script");
-                            s.src = (post.social[0].type == "instagram") ? "https://www.instagram.com/embed.js" : "https://platform.twitter.com/widgets.js";
-                            s.async = true;
-                            this.appendChild(s);
-                          }
                           return ("<h3 id='location' class='display-4'>" + post.geo.suburb +"</h3>" + (post.social.length > 0 ? post.social[0].embed:""));
                         });
+
+      const scrs = ["https://www.instagram.com/embed.js", "https://platform.twitter.com/widgets.js"];
+      scrs.forEach(function(src){
+        var s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        document.getElementById('social-content').appendChild(s);
+      });
 
       var markers = svg.selectAll("marker")
         .data(data.filter(e => e.geo?((e.geo.geo[0] || e.geo.geo[1]) != 0):false)).enter()
