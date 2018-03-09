@@ -100,20 +100,15 @@ d3.json("assets/data/us.json", function(us) {
       function scroll(e){
         d3.event.preventDefault();
         var ele = document.getElementById("social-content");
+        var h = ele.getBoundingClientRect().height;
         ele.scrollTop += d3.event.deltaY;
-        // console.log(currentPostId, visibleEleTop , ele.scrollTop);
+
         index.forEach(function(p,i){
           var visibleEle = document.getElementById("post-" + p);
-          var rec = visibleEle.getBoundingClientRect();
-          if(ele.scrollTop  > rec.top && ele.scrollTop < rec.bottom){
+          var visibleElerec = visibleEle.getBoundingClientRect();
+          if((ele.scrollTop + h) >= visibleEle.offsetTop && (ele.scrollTop + h) <= (visibleEle.offsetTop + visibleElerec.height)){
             currentPostId = i;
             console.log(currentPostId);
-            var m = d3.select( "#" + index[currentPostId]);
-            var transform = m.attr("transform");
-            var scale = m.attr("transform");
-            m.attr("transform", function(d){
-                return getTransform(transform, "translate") + getTransform(transform, "scale", [0.01, 0.01]);
-            });
           };
         });
 
