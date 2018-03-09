@@ -175,8 +175,8 @@ function setTransform(mode, value){
 }
 
 function resize() {
-  var targetWidth = parseInt(container.style("width"));
+  var targetWidth = parseInt(container.node().parentNode.clientWidth);
   svg.attr("width", targetWidth);
   svg.attr("height", Math.round(targetWidth / aspect));
 }
-d3.select(window).on("resize." + container.attr("id"), resize);
+window.addEventListener("resize", resize);
