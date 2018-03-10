@@ -44,7 +44,7 @@ d3.json("assets/data/us.json", function(us) {
     //load data
     d3.json("https://map.ou.lc/api/posts/all", function(data) {
       var index = [];
-      var timeline = d3.select('#social-content').selectAll('div')
+      var timeline = d3.select('#social-content').selectAll('div').select('div')
                         .data(data).enter()
                         .append('div')
                         .attr('class', 'post')
