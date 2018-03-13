@@ -11,6 +11,7 @@ iframe { overflow:hidden; }
 
 
 #splash-bg{
+  height: 100vh;
   background-image:linear-gradient(
   	               rgba(116, 146, 255, 0.8),
   	               rgba(116, 197, 196, 0.8)),
