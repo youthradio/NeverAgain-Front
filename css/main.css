@@ -3,13 +3,6 @@
 } */
 /*Splash Page CSS */
 
-body{
-  background-color:  rgba(116, 179, 206, 0.5);
-
-}
-iframe { overflow:hidden; }
-
-
 #splash-bg{
   height: 100vh;
   background-image:linear-gradient(
@@ -92,13 +85,14 @@ body {
    height: 100%;
    overflow: hidden;
    font-family: 'Oswald';
+   -webkit-overflow-scrolling: touch;
 }
 
 #social-content {
-    max-height: 760px;
+    max-height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden;
-
+    direction: rtl;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -127,9 +121,6 @@ body {
     h2,
     h3 {
         font-size: 25px !important;
-    }
-    #social-content {
-        max-height: 370px;
     }
     .map-1 {
         max-width: 60%;
