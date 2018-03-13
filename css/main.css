@@ -3,12 +3,14 @@
 } */
 /*Splash Page CSS */
 
-/* iframe { overflow:hidden; } */
-
-
 #splash-bg{
-  background-image:url("https://cdn.vox-cdn.com/thumbor/WU7SDFQiUYd2j562mrSxZkXU_50=/0x0:3000x2000/1200x800/filters:focal(1251x583:1731x1063)/cdn.vox-cdn.com/uploads/chorus_image/image/58830911/922441420.jpg.0.jpg");
+  height: 100vh;
+  background-image:linear-gradient(
+  	               rgba(44, 34, 93, 0.8),
+  	               rgba(44, 34, 93, 0.8)),
+                   url("https://cdn.vox-cdn.com/thumbor/WU7SDFQiUYd2j562mrSxZkXU_50=/0x0:3000x2000/1200x800/filters:focal(1251x583:1731x1063)/cdn.vox-cdn.com/uploads/chorus_image/image/58830911/922441420.jpg.0.jpg")
 }
+
 #splash-color{
   background-color:rgba(44, 34, 93, 0.8);
 }
@@ -51,9 +53,10 @@
 
 }
 .bg {
-    background-image: url('../img/bg.png');
-    background-size: cover;
-    background-position:center;
+  background-image:
+  url('../img/bg.png');
+  background-size: cover;
+  background-position:center;
 }
 .social-logos{
   display:none;
@@ -64,9 +67,9 @@
 #yrlogocircle{
   display:block;
 }
-.map-1 {
+/*.map-1 {
     padding-top: 50px;
-}
+}*/
 h1{
   font-size:50px;
 }

@@ -42,7 +42,7 @@ d3.json("assets/data/us.json", function(us) {
     var marker = document.importNode(xml.documentElement, true);
 
     //load data
-    d3.json("https://map.ou.lc/api/posts/all", function(data) {
+    d3.json("https://neveragain.youthradio.org/api/posts", function(data) {
       var index = [];
       var timeline = d3.select('#social-content').selectAll('div').select('div')
                         .data(data).enter()
