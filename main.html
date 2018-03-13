@@ -8,10 +8,26 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>Hello, world!</title>
+    <title>YOUTH RADIO | #NEVERAGAIN</title>
   </head>
   <body>
-    <div class="container-fluid bg h-100">
+
+      <div class="container-fluid"  id="splash-bg">
+      <div class="row text-center" id="splash-content">
+        <div class="col-lg-3 col-12">
+        </div>
+        <div class="col-lg-6 col-12">
+          <h1 id="splash-title">#NEVERAGAIN</h1>
+          <p id="splash-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Libero justo laoreet sit amet cursus sit amet. Sagittis vitae et leo duis ut diam quam nulla. Lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis. Pulvinar etiam non quam lacus suspendisse faucibus.</p>
+          <button id="splash-button" class="btn btn-outline-light">Enter</button>
+        </div>
+        <div class="col-lg-3 col-12">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container-fluid bg h-100"  id="map-page">
       <div class="row header text-center d-flex" id="title">
         <!-- When building the CSS, make a class that removes the black background and changes the text white when the media query reaches lg. -->
 
@@ -30,15 +46,15 @@
       </div>
       <div class="row d-flex">
         <div class="col-12 col-lg-8 order-1 order-lg-8 text-center">
-            <div class="d-flex justify-content-center h-100">
-              <div class="align-self-center" id="map"></div>
+            <div class="d-flex justify-content-center mt-5 ">
+              <div class=" " id="map"></div>
             </div>
         </div>
         <div class="col-12 pt-3 pt-lg-0 col-lg-4 order-2 order-lg-4 text-light text-left">
           <div id="social-content" class="text-center col-12">
             <div class="details text-left">
-              <h1 id="date" class="display-4">Feb 22</h1>
-              <h3 id="location" class="display-4">Oakland</h3>
+              <h1 id="date" class="display-4"></h1>
+              <h3 id="location" class="display-4"></h3>
             </div>
           </div>
         </div>
@@ -53,5 +69,8 @@
     <script src="js/libs/d3.v4.min.js"></script>
     <script src="js/libs/topojson.v3.min.js"></script>
     <script src="js/map.js"></script>
+    <script src="js/splash.js"></script>
+
+
   </body>
 </html>
