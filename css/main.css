@@ -3,6 +3,10 @@
 } */
 /*Splash Page CSS */
 
+iframe {
+  display: inline!important;
+}
+
 #splash-bg{
   height: 100vh;
   background-image:linear-gradient(
@@ -53,10 +57,10 @@
 
 }
 .bg {
-  background-image:
-  url('../img/bg.png');
+  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('../img/bg.png');
   background-size: cover;
   background-position:center;
+
 }
 .social-logos{
   display:none;
@@ -122,8 +126,8 @@ body {
     h3 {
         font-size: 25px !important;
     }
-    h1 { 
-      font-size: 35px; 
+    h1 {
+      font-size: 35px;
     }
     .map-1 {
         max-width: 60%;
@@ -157,7 +161,7 @@ body {
 
 @media (max-width: 992px) and (min-width: 0px) {
 
-    
+
 
 }
 @media (min-width: 992px) {
