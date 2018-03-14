@@ -155,9 +155,9 @@ d3.json("assets/data/us.json", function(us) {
 
       }
       function mouseClick(e, i) {
-        var top = document.getElementById("post-"+e.slug).offsetTop;
+        var top = document.getElementById("post-id-"+e.slug);
         var ele = document.getElementById("social-content");
-        ele.scrollTo(0, top);
+        ele.scrollTo(top.offsetWidth, top.offsetTop);
       }
       function mouseOut(d, i) {
           tooltip.transition()
