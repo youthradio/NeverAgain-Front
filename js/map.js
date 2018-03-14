@@ -46,7 +46,8 @@ d3.json("assets/data/us.json", function(us) {
       if (error) return console.log(error);
       var index = [];
       var timeline = d3.select('#social-content').selectAll('div').select('div')
-                        .data(data.filter(e => e.geo?((e.geo.geo[0] || e.geo.geo[1]) != 0):false)).enter()
+                        .data(data.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
+                        .enter()
                         .append('div')
                         .attr('class', 'post')
                         .attr('id', function(p){
@@ -69,7 +70,8 @@ d3.json("assets/data/us.json", function(us) {
       });
 
       var markers = svg.selectAll("marker")
-        .data(data.filter(e => e.geo?((e.geo.geo[0] || e.geo.geo[1]) != 0):false)).enter()
+        .data(data.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
+        .enter()
         .append('svg')
         .attr("class", "marker")
         .append("g")
