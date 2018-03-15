@@ -7,7 +7,7 @@ var projection = d3.geoAlbersUsa().translate([width / 2, height / 2]);
 var path = d3.geoPath(projection);
 
 // load the external svg from a file
-const MARKER_S_MIN = 0.05
+const MARKER_S_MIN = 0.07
 const MARKER_S_MAX = 0.15
 
 svg.attr("width", width)
@@ -22,6 +22,15 @@ var tooltip = d3.select("body")
   .append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
+
+d3.select('#splash-button').on('click',function(){
+  d3.select("#splash-bg").style("position","absolute")
+     .style("top","0px")
+     .transition()
+     .duration(1000)
+     .ease(d3.easeBack)
+     .style("top", function(){ return this.offsetHeight + "px" });
+});
 
 d3.json("assets/data/us.json", function(us) {
 
@@ -44,6 +53,7 @@ d3.json("assets/data/us.json", function(us) {
     //load data
     d3.json("https://neveragain.youthradio.org/api/posts", function(error, data) {
       if (error) return console.log(error);
+
       var index = [];
       var timeline = d3.select('#social-content').selectAll('div').select('div')
                         .data(data.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
@@ -73,7 +83,7 @@ d3.json("assets/data/us.json", function(us) {
         .data(data.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
         .enter()
         .append('svg')
-        .attr("class", "marker")
+        .attr("class", function(e){ return "marker marker-" + e.category })
         .append("g")
         .each(function() {
           this.appendChild(marker.cloneNode(true).children[0]);
@@ -83,20 +93,13 @@ d3.json("assets/data/us.json", function(us) {
         .on("mouseout", mouseOut)
         .on("click", mouseClick)
 
-        // .attr("transform", function(post) {
-        //   var scale = 0.15;
-        //   return "translate(" + (projection(post.geo.geo)[0] - scale * this.getBBox().width / 2) + "," + (-Math.random() * 1000) + ")scale(" + scale + "," + scale + ")";
-        // })
         .attr("transform", function(post) {
           return "translate(" + (projection(post.geo.geo)[0]) + "," + (-Math.random() * 1000) + ")scale(" + MARKER_S_MAX + "," + MARKER_S_MAX + ")";
         })
         .transition()
         .ease(d3.easeBounce)
         .duration(1500)
-        // .attr("transform", function(post) {
-        //   var scale = 0.05;
-        //   return "translate(" + (projection(post.geo.geo)[0] - scale * this.getBBox().width / 2) + "," + (projection(post.geo.geo)[1] - scale * this.getBBox().height) + ")scale(" + scale + "," + scale + ")";
-        // });
+        
         .attr("transform", function(post) {
           return "translate(" + (projection(post.geo.geo)[0]) + "," + (projection(post.geo.geo)[1]) + ")scale(" + MARKER_S_MIN + "," + MARKER_S_MIN + ")";
         });
