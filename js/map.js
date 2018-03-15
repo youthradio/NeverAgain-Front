@@ -78,7 +78,7 @@ Map.prototype.drawMap = function(us) {
 Map.prototype.drawMarkers = function(){
   var self = this;
   this.markers = this.svg.selectAll("marker")
-    .data(self.data.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
+    .data(self.data.posts.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
     .enter()
     .append('svg')
     .attr("class", function(e){ return "marker marker-" + e.category })
@@ -136,7 +136,7 @@ Map.prototype.loadTimeline = function(){
 
   var index = [];
   var timeline = d3.select('#social-content').selectAll('div').select('div')
-                    .data(self.data.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
+                    .data(self.data.posts.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
                     .enter()
                     .append('div')
                     .attr('class', 'post')
