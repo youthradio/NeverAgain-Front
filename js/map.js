@@ -134,6 +134,21 @@ Map.prototype.drawMarkers = function(){
 Map.prototype.loadTimeline = function(){
   var self = this;
 
+  var chapters = d3.select('#social-content').selectAll('div').select('div')
+                   .data(self.data.categories);
+
+  chapters.attr("class", "update");
+
+  chapters.enter()
+          .append('div')
+          .attr('id', function(e){ return e.key })
+          .html(function(chapter){
+              return( chapter.body.html );
+          });
+
+  chapters.exit().remove();
+
+
   var index = [];
   var timeline = d3.select('#social-content').selectAll('div').select('div')
                     .data(self.data.posts.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
@@ -149,7 +164,7 @@ Map.prototype.loadTimeline = function(){
                     .html(function(post){
                       // return ("<h3 class='display-4'>" + post.geo.suburb +"</h3>" + (post.social.length > 0 ? post.social[0]:""));
 
-                      return ("<h3 class='display-4'>" + post.geo.suburb +"</h3>" + (post.social.length > 0 ? post.social[0].embed:""));
+                      return ("<h4>" + post.geo.suburb +"</h4>" + (post.social.length > 0 ? post.social[0].embed:""));
                     });
 
   const scrs = ["https://www.instagram.com/embed.js", "https://platform.twitter.com/widgets.js"];

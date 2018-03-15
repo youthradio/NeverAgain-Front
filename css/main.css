@@ -73,6 +73,7 @@ iframe {
 
 /*Main Page CSS */
 
+
 #title{
   background-color:rgba(87, 72, 155, 0.73);
 
@@ -175,7 +176,7 @@ body {
     #yrlogocircle{
       display:none;
     }
-    
+
 }
 
 @media (max-width: 768px) {
@@ -250,6 +251,29 @@ body {
 .marker-chapter-7 {
     fill: #fdbf6f;
 }
+
+#chapter-1 {
+  background-color: #a6cee3;
+}
+#chapter-2 {
+  background-color: #1f78b4;
+}
+#chapter-3 {
+  background-color: #b2df8a;
+}
+#chapter-4 {
+  background-color: #33a02c;
+}
+#chapter-5 {
+  background-color: #fb9a99;
+}
+#chapter-6 {
+  background-color: #e31a1c;
+}
+#chapter-6 {
+  background-color: #fdbf6f;
+}
+
 
 .states {
   stroke: #0a090c;
