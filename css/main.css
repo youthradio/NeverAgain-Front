@@ -6,8 +6,11 @@
 iframe {
   display: inline!important;
 }
-
+#map-page{
+  z-index: 0;
+}
 #splash-bg{
+  z-index: 100;
   height: 100vh;
   background-image:linear-gradient(
   	               rgba(44, 34, 93, 0.8),
@@ -187,15 +190,37 @@ body {
 /* Map Viz CSS */
 /* https://coolors.co/fdffff-b10f2e-570000-280000-de7c5a */
 .marker {
-    opacity: 0.9;
+    opacity: 1;
     fill: #b10f2e;
     /* -webkit-filter: drop-shadow( 1px 1px 2px #000 );
     filter: drop-shadow( 1px 1px 2px #000 ); */
 }
 .marker:hover {
-    fill: #c65067;
-    opacity: 1.0;
+    /* fill: #c65067; */
+    opacity: 0.8;
 }
+.marker-chaper-1 {
+  fill: #a6cee3;
+}
+.marker-chapter-2 {
+    fill: #1f78b4;
+}
+.marker-chapter-3 {
+    fill: #b2df8a;
+}
+.marker-chapter-4 {
+    fill: #33a02c;
+}
+.marker-chapter-5 {
+    fill: #fb9a99;
+}
+.marker-chapter-6 {
+    fill: #e31a1c;
+}
+.marker-chapter-7 {
+    fill: #fdbf6f;
+}
+
 .states {
   stroke: #0a090c;
   stroke-width: 1px;
