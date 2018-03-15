@@ -29,7 +29,10 @@ d3.select('#splash-button').on('click',function(){
      .transition()
      .duration(1000)
      .ease(d3.easeBack)
-     .style("top", function(){ return this.offsetHeight + "px" });
+     .style("top", function(){ return this.offsetHeight + "px" })
+     .on("end", function(){
+       this.style.display = 'none';
+     });
 });
 
 d3.json("assets/data/us.json", function(us) {
@@ -99,7 +102,7 @@ d3.json("assets/data/us.json", function(us) {
         .transition()
         .ease(d3.easeBounce)
         .duration(1500)
-        
+
         .attr("transform", function(post) {
           return "translate(" + (projection(post.geo.geo)[0]) + "," + (projection(post.geo.geo)[1]) + ")scale(" + MARKER_S_MIN + "," + MARKER_S_MIN + ")";
         });
