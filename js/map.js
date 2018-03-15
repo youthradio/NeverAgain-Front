@@ -42,20 +42,22 @@ d3.json("assets/data/us.json", function(us) {
     var marker = document.importNode(xml.documentElement, true);
 
     //load data
-    d3.json("https://neveragain.youthradio.org/api/posts", function(data) {
+    d3.json("https://neveragain.youthradio.org/api/posts", function(error, data) {
+      if (error) return console.log(error);
       var index = [];
       var timeline = d3.select('#social-content').selectAll('div').select('div')
-                        .data(data).enter()
+                        .data(data.filter(e => e.geo?((e.geo.geo[0] || e.geo.geo[1]) != 0):false)).enter()
                         .append('div')
                         .attr('class', 'post')
                         .attr('id', function(p){
                           var id = p.slug;
-                          index.push(id);
-                          return "post-" + id;
+                          index.push("id-" + id);
+                          return "post-id-" + id;
                         })
                         .attr('data-social', function(post){ if(post.social.length > 0){ return post.social[0].type }})
                         .html(function(post){
-                          return ("<h3 id='location' class='display-4'>" + post.geo.suburb +"</h3>" + (post.social.length > 0 ? post.social[0].embed:""));
+                        //  return ("");
+                          return ("<h3 class='display-4'>" + post.geo.suburb +"</h3>" + (post.social.length > 0 ? post.social[0].embed:""));
                         });
 
       const scrs = ["https://www.instagram.com/embed.js", "https://platform.twitter.com/widgets.js"];
@@ -74,7 +76,7 @@ d3.json("assets/data/us.json", function(us) {
         .each(function() {
           this.appendChild(marker.cloneNode(true).children[0]);
         })
-        .attr("id", function(e){ return e.slug})
+        .attr("id", function(e){ return "id-" + e.slug})
         .on("mouseover", mouseOver)
         .on("mouseout", mouseOut)
         .on("click", mouseClick)
@@ -153,9 +155,9 @@ d3.json("assets/data/us.json", function(us) {
 
       }
       function mouseClick(e, i) {
-        var top = document.getElementById("post-"+e.slug).offsetTop;
+        var top = document.getElementById("post-id-"+e.slug);
         var ele = document.getElementById("social-content");
-        ele.scrollTo(0, top);
+        ele.scrollTo(top.offsetWidth, top.offsetTop);
       }
       function mouseOut(d, i) {
           tooltip.transition()
