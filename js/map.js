@@ -152,6 +152,7 @@ Map.prototype.loadTimeline = function(){
   self.chapters.enter()
           .append('div')
           .attr('id', function(e){ return e.key })
+          .attr('data-social', 'chapter')
           .html(function(chapter){
               return( chapter.body.html );
           });
@@ -180,8 +181,18 @@ Map.prototype.loadTimeline = function(){
 
               });
   //reaplace tags for lazy loading
-  document.querySelectorAll(".twitter-tweet").forEach(function(e){ e.className = "lazy-load"});
-  document.querySelectorAll(".instagram-media").forEach(function(e){ e.className = "lazy-load"});
+  document.querySelectorAll(".twitter-tweet").forEach(function(ele, i){
+    if(i > 2){
+     ele.className = "lazy-load";
+   }else{
+     ele.className = "lazy-load";
+     self.lazyLoadElement(ele.parentNode);
+   }
+  });
+  document.querySelectorAll(".instagram-media").forEach(function(ele, i){
+    ele.className = "lazy-load";
+    self.lazyLoadElement(ele.parentNode);
+  });
 
   //scroll events
 
@@ -200,20 +211,12 @@ Map.prototype.loadTimeline = function(){
     index.forEach(function(p,i){
       var visibleEle = document.getElementById("post-" + p);
       var visibleElerec = visibleEle.getBoundingClientRect();
-      if((box.scrollTop + h) >= visibleEle.offsetTop && (box.scrollTop + h) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
+      if((box.scrollTop + h/2) >= visibleEle.offsetTop && (box.scrollTop + h/2) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
         lastPostId = currentPostId;
         currentPostId = i;
-        //lazy loading twitter and intagram
-        if(visibleEle.querySelector('.lazy-load') != null){
-          if(visibleEle.getAttribute('data-social') === 'twitter' || visibleEle.getAttribute('data-social') === 'instagram' ){
-              // console.log(visibleEle);
-              var lazyParams = SCRIPT[visibleEle.getAttribute('data-social')];
-              visibleEle.querySelector('.lazy-load').className = lazyParams.class;
-              var s = document.createElement("script");
-              s.src = lazyParams.src;
-              s.async = true;
-              s.defer = true;
-              visibleEle.appendChild(s);
+        if(visibleEle.querySelector('.lazy-load') !== null){
+          if(visibleEle.getAttribute('data-social') === 'twitter'){
+              self.lazyLoadElement(visibleEle);
           }
         }
 
@@ -241,6 +244,20 @@ Map.prototype.loadTimeline = function(){
     });
   });
 
+}
+
+Map.prototype.lazyLoadElement = function(ele) {
+  //create virtual script and force dom to load it
+  if (ele.getAttribute('data-social')) {
+    var lazyParams = SCRIPT[ele.getAttribute('data-social')];
+    var script = document.createElement("script");
+    //replace lazy-load tag
+    ele.querySelector('.lazy-load').className = lazyParams.class;
+    script.src = lazyParams.src;
+    script.async = true;
+    script.defer = true;
+    ele.appendChild(script);
+  }
 }
 
 //start new instance of map
