@@ -153,6 +153,8 @@ Map.prototype.loadTimeline = function(){
           .append('div')
           .attr('id', function(e){ return e.key })
           .attr('data-social', 'chapter')
+          .append('div')
+          .attr('class', 'chapter-header')
           .html(function(chapter){
               return( chapter.body.html );
           });
