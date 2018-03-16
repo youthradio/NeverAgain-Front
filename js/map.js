@@ -1,5 +1,15 @@
 const MARKER_S_MIN = 0.07
 const MARKER_S_MAX = 0.15
+const SCRIPT = {
+  instagram: {
+    src: "https://www.instagram.com/embed.js",
+    class: "instagram-media"
+  },
+  twitter: {
+    src: "https://platform.twitter.com/widgets.js",
+    class: "twitter-tweet"
+  }
+};
 
 var Map = function(cfg){
   this.width = cfg.width;
@@ -169,14 +179,9 @@ Map.prototype.loadTimeline = function(){
                                   });
 
               });
-              
-  const scrs = ["https://www.instagram.com/embed.js", "https://platform.twitter.com/widgets.js"];
-  scrs.forEach(function(src){
-    var s = document.createElement("script");
-    s.src = src;
-    s.async = true;
-    document.getElementById('social-content').appendChild(s);
-  });
+  //reaplace tags for lazy loading
+  document.querySelectorAll(".twitter-tweet").forEach(function(e){ e.className = "lazy-load"});
+  document.querySelectorAll(".instagram-media").forEach(function(e){ e.className = "lazy-load"});
 
   //scroll events
 
@@ -198,6 +203,19 @@ Map.prototype.loadTimeline = function(){
       if((box.scrollTop + h/2) >= visibleEle.offsetTop && (box.scrollTop + h/2) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
         lastPostId = currentPostId;
         currentPostId = i;
+        //lazy loading twitter and intagram
+        if(visibleEle.querySelector('.lazy-load') != null){
+          if(visibleEle.getAttribute('data-social') === 'twitter' || visibleEle.getAttribute('data-social') === 'instagram' ){
+              // console.log(visibleEle);
+              var lazyParams = SCRIPT[visibleEle.getAttribute('data-social')];
+              visibleEle.querySelector('.lazy-load').className = lazyParams.class;
+              var s = document.createElement("script");
+              s.src = lazyParams.src;
+              s.async = true;
+              s.defer = true;
+              visibleEle.appendChild(s);
+          }
+        }
 
         var markerOn = d3.select("#" + p);
         var transform = markerOn.attr("transform");
