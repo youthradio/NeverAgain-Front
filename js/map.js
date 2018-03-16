@@ -200,7 +200,7 @@ Map.prototype.loadTimeline = function(){
     index.forEach(function(p,i){
       var visibleEle = document.getElementById("post-" + p);
       var visibleElerec = visibleEle.getBoundingClientRect();
-      if((box.scrollTop + h/2) >= visibleEle.offsetTop && (box.scrollTop + h/2) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
+      if((box.scrollTop + h) >= visibleEle.offsetTop && (box.scrollTop + h) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
         lastPostId = currentPostId;
         currentPostId = i;
         //lazy loading twitter and intagram
