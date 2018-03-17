@@ -112,15 +112,15 @@ h1{
 html,
 body {
    width: auto;
-   height: 100%;
+   height: 100vh;
    overflow: hidden;
    font-family: 'Oswald';
    -webkit-overflow-scrolling: touch;
 }
 
 #social-content {
-    max-height: 90vh;
-    overflow-y: scroll;
+    height: 100vh;
+    overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
@@ -134,7 +134,7 @@ body {
   top:0;
 
 }
-
+  
 .endingScroll {
     margin-top: 1600px;
 }
@@ -153,10 +153,6 @@ body {
     }
     h1 {
       font-size: 35px;
-    }
-    .map-1 {
-        max-width: 60%;
-        max-height: 60%;
     }
 
     #splash-title{
@@ -182,13 +178,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    .map-1 {
-        max-width: 80%;
-        max-height: 80%;
-    }
-
-
-    }
     .header {
 
     	padding-top: 0px;
