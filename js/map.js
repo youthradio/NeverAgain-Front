@@ -50,6 +50,13 @@ Map.prototype.resize = function() {
   var targetWidth = parseInt(this.container.node().parentNode.clientWidth);
   this.svg.attr("width", targetWidth);
   this.svg.attr("height", Math.round(targetWidth / this.aspect));
+
+  if(window.innerWidth < 992){
+   var newHeight = 'calc(100vh - ' + (document.getElementById('title').offsetHeight + document.getElementById('map').offsetHeight) + 'px';
+ }else{
+   var newHeight = 'calc(100vh - ' + document.getElementById('title').offsetHeight + 'px';
+ }
+  document.getElementById('social-content').style.height = newHeight;
 }
 
 Map.prototype.loadData = function(){
@@ -126,9 +133,11 @@ Map.prototype.drawMarkers = function(){
 
     }
     function mouseClick(e, i) {
-      var top = document.getElementById("post-id-" + e.slug);
-      var ele = document.getElementById("social-content");
-      ele.scrollTo(top.offsetWidth, top.offsetTop);
+      var ele = document.getElementById("post-id-" + e.slug);
+      var timeline = document.getElementById("social-content");
+      var h = timeline.getBoundingClientRect().height;
+      self.lazyLoadElement(ele);
+      timeline.scrollTo(ele.offsetWidth, ele.offsetTop - h/2);
     }
     function mouseOut(d, i) {
       self.tooltip.transition()
@@ -216,12 +225,9 @@ Map.prototype.loadTimeline = function(){
       if((box.scrollTop + h/2) >= visibleEle.offsetTop && (box.scrollTop + h/2) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
         lastPostId = currentPostId;
         currentPostId = i;
-        if(visibleEle.querySelector('.lazy-load') !== null){
-          if(visibleEle.getAttribute('data-social') === 'twitter'){
-              self.lazyLoadElement(visibleEle);
-          }
+        if(visibleEle.getAttribute('data-social') === 'twitter'){
+            self.lazyLoadElement(visibleEle);
         }
-
         var markerOn = d3.select("#" + p);
         var transform = markerOn.attr("transform");
         var scaleV = 0.08;
@@ -250,15 +256,17 @@ Map.prototype.loadTimeline = function(){
 
 Map.prototype.lazyLoadElement = function(ele) {
   //create virtual script and force dom to load it
-  if (ele.getAttribute('data-social')) {
-    var lazyParams = SCRIPT[ele.getAttribute('data-social')];
-    var script = document.createElement("script");
-    //replace lazy-load tag
-    ele.querySelector('.lazy-load').className = lazyParams.class;
-    script.src = lazyParams.src;
-    script.async = true;
-    script.defer = true;
-    ele.appendChild(script);
+  if(ele.querySelector('.lazy-load') !== null){
+    if (ele.getAttribute('data-social')) {
+      var lazyParams = SCRIPT[ele.getAttribute('data-social')];
+      var script = document.createElement("script");
+      //replace lazy-load tag
+      ele.querySelector('.lazy-load').className = lazyParams.class;
+      script.src = lazyParams.src;
+      script.async = true;
+      script.defer = true;
+      ele.appendChild(script);
+    }
   }
 }
 
