@@ -233,22 +233,22 @@ body {
     opacity: 0.8;
 }
 .marker-chapter-1 {
-  fill: #FF8552;
+  fill: #D65F23;
 }
 .marker-chapter-2 {
-    fill: #FFAC54;
+    fill: #FF8552;
 }
 .marker-chapter-3 {
-    fill: #FFD866;
+    fill: #FFAC54;
 }
 .marker-chapter-4 {
     fill: #FFD866;
 }
 .marker-chapter-5 {
-    fill: #A6D154;
+    fill: #FFD866;
 }
 .marker-chapter-6 {
-    fill: #A6D154;
+    fill: #A6D154;A6D154
 }
 .marker-chapter-7 {
     fill: #fdbf6f;
@@ -277,26 +277,31 @@ body {
   font-size: 2.2rem;
 }
 
+.chapter-header h1{
+  font-family: 'Oswald';
+  font-size: 1.8rem;
+}
+
 
 #chapter-1 h4{
-  color: #FF8552;
+  color: #D65F23;
 }
 
 #chapter-1 h3{
-  color: #FF8552;
+  color: #D65F23;
 }
 
 #chapter-2 h4{
-  color: #FFAC54;
+  color: #FF8552;
 }
 #chapter-2 h3{
-  color: #FFAC54;
+  color: #FF8552;
 }
 #chapter-3 h4{
-  color: #FFD866;
+  color: #FFAC54;
 }
 #chapter-3 h3{
-  color: #FFD866;
+  color: #FFAC54;
 }
 #chapter-4 h4{
   color: #FFD866;
@@ -305,10 +310,10 @@ body {
   color: #FFD866;
 }
 #chapter-5 h4{
-  color: #A6D154;
+  color: #FFD866;
 }
 #chapter-5 h3{
-  color: #A6D154;
+  color: #FFD866;
 }
 #chapter-6 h4{
   color: #A6D154;
