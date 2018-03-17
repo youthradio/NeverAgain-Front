@@ -124,6 +124,17 @@ body {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
+
+#social-content:after {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background:linear-gradient(transparent 150px, white);
+	left:0;
+  top:0;
+
+}
+  
 .endingScroll {
     margin-top: 1600px;
 }
@@ -211,30 +222,102 @@ body {
     opacity: 0.8;
 }
 .marker-chapter-1 {
-  fill: #a6cee3;
+  fill: #D65F23;
 }
 .marker-chapter-2 {
-    fill: #1f78b4;
+    fill: #FF8552;
 }
 .marker-chapter-3 {
-    fill: #b2df8a;
+    fill: #FFAC54;
 }
 .marker-chapter-4 {
-    fill: #33a02c;
+    fill: #FFD866;
 }
 .marker-chapter-5 {
-    fill: #fb9a99;
+    fill: #FFD866;
 }
 .marker-chapter-6 {
-    fill: #e31a1c;
+    fill: #A6D154;A6D154
 }
 .marker-chapter-7 {
     fill: #fdbf6f;
 }
 
-#chapter-1 {
+.chapter-header {
+  font-family: 'Open Sans', sans;
+  font-size: 14px;
   /*background-color: #a6cee3;*/
+  background-color: white;
+  color: black;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 16px;
+  border: 0px lightgrey solid;
+  border-radius: 5px;
 }
+
+
+.chapter-header p{
+  text-align: left;
+}
+.chapter-header h3{
+  font-weight: bold;
+  font-family: 'Oswald';
+  font-size: 2.2rem;
+}
+
+.chapter-header h1{
+  font-family: 'Oswald';
+  font-size: 1.8rem;
+}
+
+
+#chapter-1 h4{
+  color: #D65F23;
+}
+
+#chapter-1 h3{
+  color: #D65F23;
+}
+
+#chapter-2 h4{
+  color: #FF8552;
+}
+#chapter-2 h3{
+  color: #FF8552;
+}
+#chapter-3 h4{
+  color: #FFAC54;
+}
+#chapter-3 h3{
+  color: #FFAC54;
+}
+#chapter-4 h4{
+  color: #FFD866;
+}
+#chapter-4 h3{
+  color: #FFD866;
+}
+#chapter-5 h4{
+  color: #FFD866;
+}
+#chapter-5 h3{
+  color: #FFD866;
+}
+#chapter-6 h4{
+  color: #A6D154;
+}
+#chapter-6 h3{
+  color: #A6D154;
+}
+#chapter-7 h4{
+  color: #fdbf6f;
+}
+#chapter-7 h3{
+  color: #fdbf6f;
+}
+
+
 #chapter-2 {
   /*background-color: #1f78b4;*/
 }
