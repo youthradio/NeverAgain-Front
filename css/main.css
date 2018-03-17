@@ -3,8 +3,11 @@
 } */
 /*Splash Page CSS */
 
-iframe {
-  display: inline!important;
+.twitter-tweet-rendered {
+  margin: auto!important;
+}
+.instagram-media-rendered{
+  margin: auto!important;
 }
 #map-page{
   z-index: 0;
@@ -119,7 +122,6 @@ body {
     max-height: 90vh;
     overflow-y: scroll;
     overflow-x: hidden;
-    /*direction: rtl;*/
     -webkit-overflow-scrolling: touch;
 }
 
@@ -231,22 +233,22 @@ body {
     opacity: 0.8;
 }
 .marker-chapter-1 {
-  fill: #C2DEA0;
+  fill: #FF8552;
 }
 .marker-chapter-2 {
-    fill: #FFD866;
-}
-.marker-chapter-3 {
-    fill: #b2df8a;
-}
-.marker-chapter-4 {
     fill: #FFAC54;
 }
+.marker-chapter-3 {
+    fill: #FFD866;
+}
+.marker-chapter-4 {
+    fill: #FFD866;
+}
 .marker-chapter-5 {
-    fill: #FF8552;
+    fill: #A6D154;
 }
 .marker-chapter-6 {
-    fill: #e31a1c;
+    fill: #A6D154;
 }
 .marker-chapter-7 {
     fill: #fdbf6f;
@@ -277,42 +279,42 @@ body {
 
 
 #chapter-1 h4{
-  color: #C2DEA0;
+  color: #FF8552;
 }
 
 #chapter-1 h3{
-  color: #C2DEA0;
+  color: #FF8552;
 }
 
 #chapter-2 h4{
-  color: #FFD866;
+  color: #FFAC54;
 }
 #chapter-2 h3{
-  color: #FFD866;
+  color: #FFAC54;
 }
 #chapter-3 h4{
-  color: #b2df8a;
+  color: #FFD866;
 }
 #chapter-3 h3{
-  color: #b2df8a;
+  color: #FFD866;
 }
 #chapter-4 h4{
-  color: #FFAC54;
+  color: #FFD866;
 }
 #chapter-4 h3{
-  color: #FFAC54;
+  color: #FFD866;
 }
 #chapter-5 h4{
-  color: #FF8552;
+  color: #A6D154;
 }
 #chapter-5 h3{
-  color: #FF8552;
+  color: #A6D154;
 }
 #chapter-6 h4{
-  color: #e31a1c;
+  color: #A6D154;
 }
 #chapter-6 h3{
-  color: #e31a1c;
+  color: #A6D154;
 }
 #chapter-7 h4{
   color: #fdbf6f;
