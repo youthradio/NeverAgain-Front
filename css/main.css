@@ -116,14 +116,14 @@ body {
 }
 
 #social-content {
-    max-height: 100vh;
+    max-height: 90vh;
     overflow-y: scroll;
     overflow-x: hidden;
     /*direction: rtl;*/
     -webkit-overflow-scrolling: touch;
 }
 
-#social-content:before {
+#social-content:after {
 	position: absolute;
 	width: 100%;
 	height: 100%;
