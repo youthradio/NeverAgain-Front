@@ -125,6 +125,7 @@ Map.prototype.drawMarkers = function(){
       this.appendChild(self.markerSVG.cloneNode(true).children[0]);
     })
     .attr("id", function(e){ return "id-" + e.slug})
+    .attr("data-loc",function(e){ return e.geo.suburb + " " + e.geo.state })
     .on("mouseover", mouseOver)
     .on("mouseout", mouseOut)
     .on("click", mouseClick)
@@ -147,12 +148,7 @@ Map.prototype.drawMarkers = function(){
 
 
     function mouseOver(e, i) {
-      self.tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9);
-      self.tooltip.html(e.title + "<br/>" + e.geo.suburb + " " + e.geo.state)
-                  .style("left", (d3.event.pageX) + "px")
-                  .style("top", (d3.event.pageY - 28) + "px");
+      self.toggleToolTip(true, [d3.event.pageX, d3.event.pageY], e.geo.suburb + " " + e.geo.state)
       var transform = d3.select(this).attr("transform");
       var scaleV = 0.06;
       d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]));
@@ -166,16 +162,28 @@ Map.prototype.drawMarkers = function(){
       timeline.scrollTo(ele.offsetWidth, ele.offsetTop - h/2);
     }
     function mouseOut(d, i) {
-      self.tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
+      self.toggleToolTip(false);
       var transform = d3.select(this).attr("transform");
       var scaleV = -0.06;
       d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
       d3.select(this.parentNode).raise();
     }
 }
-
+Map.prototype.toggleToolTip = function(mode, pos, text){
+  var self = this;
+  if(mode){
+      self.tooltip.transition()
+                    .duration(500)
+                    .style("opacity", .9);
+      self.tooltip.html(text)
+                  .style("left", pos[0] + "px")
+                  .style("top", (pos[1] - 28) + "px");
+  }else{
+    self.tooltip.transition()
+                  .duration(500)
+                  .style("opacity", 0);
+  }
+}
 Map.prototype.loadTimeline = function(){
   var self = this;
 
@@ -266,11 +274,16 @@ Map.prototype.enableScrollEvents = function(){
           .transition()
           .ease(d3.easeExp)
           .duration(800)
-          .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]));
+          .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
+          .on("end", function(){
+            var markerBox = markerOn.node().getBoundingClientRect();
+            self.toggleToolTip(true,[markerBox.x, markerBox.y], markerOn.attr('data-loc'));
+          });
 
         if(lastPostId !== -1){
           var markerOff = d3.select("#" + self.index[lastPostId]);
           var transformOff = markerOff.attr("transform");
+          self.toggleToolTip(false);
           markerOff
             .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
             .transition()
