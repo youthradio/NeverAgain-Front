@@ -156,7 +156,7 @@ Map.prototype.drawMarkers = function(){
       var transform = d3.select(this).attr("transform");
       var scaleV = 0.06;
       d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]));
-
+      d3.select(this.parentNode).raise();
     }
     function mouseClick(e, i) {
       var ele = document.getElementById("post-id-" + e.slug);
@@ -172,8 +172,8 @@ Map.prototype.drawMarkers = function(){
       var transform = d3.select(this).attr("transform");
       var scaleV = -0.06;
       d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
+      d3.select(this.parentNode).raise();
     }
-
 }
 
 Map.prototype.loadTimeline = function(){
@@ -258,6 +258,7 @@ Map.prototype.enableScrollEvents = function(){
             self.lazyLoadElement(visibleEle);
         }
         var markerOn = d3.select("#" + p);
+        d3.select(markerOn.node().parentNode).raise(); //raise marker to front
         var transform = markerOn.attr("transform");
         var scaleV = 0.08;
         markerOn
