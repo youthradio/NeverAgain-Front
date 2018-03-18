@@ -114,6 +114,7 @@ Map.prototype.drawMap = function(us) {
 
 Map.prototype.drawMarkers = function(){
   var self = this;
+  var n = 0;
   this.markers = this.svg.selectAll("marker")
     .data(self.data.posts.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
     .enter()
@@ -137,7 +138,12 @@ Map.prototype.drawMarkers = function(){
 
     .attr("transform", function(post) {
       return "translate(" + (self.projection(post.geo.geo)[0]) + "," + (self.projection(post.geo.geo)[1]) + ")scale(" + MARKER_S_MIN + "," + MARKER_S_MIN + ")";
+    })
+    .each(function() { ++n; })
+    .on("end", function() {
+      if (!--n) self.enableScrollEvents(); //enable scroll events afer markers fixed
     });
+
 
 
     function mouseOver(e, i) {
@@ -190,7 +196,7 @@ Map.prototype.loadTimeline = function(){
 
   self.chapters.exit().remove();
 
-  var index = [];
+  self.index = [];
   self.chapters.enter()
               .each(function(chapter) {
                   d3.select('#' + chapter.key).selectAll('div').select('div')
@@ -201,7 +207,7 @@ Map.prototype.loadTimeline = function(){
                                   .attr('class', 'post')
                                   .attr('id', function(p){
                                     var id = p.slug;
-                                    index.push("id-" + id);
+                                    self.index.push("id-" + id);
                                     return "post-id-" + id;
                                   })
                                   .attr('data-social', function(post){ if(post.social.length > 0){ return post.social[0].type }})
@@ -225,8 +231,11 @@ Map.prototype.loadTimeline = function(){
     self.lazyLoadElement(ele.parentNode);
   });
 
-  //scroll events
+}
 
+Map.prototype.enableScrollEvents = function(){
+  var self = this;
+  //scroll events
   var scrollEvent = d3.select(window).on("wheel.zoom", mouseWheelScrool);
   function mouseWheelScrool(e){
     d3.event.preventDefault();
@@ -239,7 +248,7 @@ Map.prototype.loadTimeline = function(){
   document.getElementById("social-content").addEventListener("scroll", function (event) {
     var box = this;
     var h = box.getBoundingClientRect().height;
-    index.forEach(function(p,i){
+    self.index.forEach(function(p,i){
       var visibleEle = document.getElementById("post-" + p);
       var visibleElerec = visibleEle.getBoundingClientRect();
       if((box.scrollTop + h/2) >= visibleEle.offsetTop && (box.scrollTop + h/2) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
@@ -259,7 +268,7 @@ Map.prototype.loadTimeline = function(){
           .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]));
 
         if(lastPostId !== -1){
-          var markerOff = d3.select("#" + index[lastPostId]);
+          var markerOff = d3.select("#" + self.index[lastPostId]);
           var transformOff = markerOff.attr("transform");
           markerOff
             .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
@@ -271,7 +280,6 @@ Map.prototype.loadTimeline = function(){
       }
     });
   });
-
 }
 
 Map.prototype.lazyLoadElement = function(ele) {
