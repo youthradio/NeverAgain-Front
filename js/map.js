@@ -19,7 +19,7 @@ var Map = function(cfg){
   this.aspect = this.width / this.height;
   this.projection = d3.geoAlbersUsa().translate([this.width / 2, this.height / 2]);
   this.path = d3.geoPath(this.projection);
-
+  this.isDataLoaded = false;
   this.setup();
   this.loadData();
 
@@ -61,20 +61,40 @@ Map.prototype.resize = function() {
 
 Map.prototype.loadData = function(){
   var self = this;
-  d3.json("assets/data/us.json", function(us) {
-    self.drawMap(us);
 
-    //load marker from external svg from a file
-    d3.xml("assets/map-marker.svg", function(xml) {
-      self.markerSVG = document.importNode(xml.documentElement, true);
-      //fetch data form api
-      d3.json("https://neveragain.youthradio.org/api/posts", function(error, data) {
-        if (error) return console.log(error);
+  d3.queue()
+    .defer(d3.json, "assets/data/us-light.json") //load us map data
+    .defer(d3.xml, "assets/map-marker.svg")//load marker from external svg from a file
+    .defer(d3.json, "https://neveragain.youthradio.org/api/posts") //fetch data form api
+    .await(function(error, us, xml, data){
+      if (error) return console.log(error);
+        self.isDataLoaded = true;
+        self.drawMap(us)
+        self.markerSVG = document.importNode(xml.documentElement, true);
         self.data = data;
         self.loadTimeline();
-      });
     });
-  });
+}
+Map.prototype.start = function(){
+  var self = this;
+
+  d3.queue()
+    .defer(function(callback){
+      checkLoadedData(); //wait all data to be load
+      function checkLoadedData() {
+        setTimeout(function(){
+         if(self.isDataLoaded){
+           callback(null);
+         }else{
+           checkLoadedData();
+         }
+       }, 5);
+     }
+    })
+    .await(function(error){
+      if (error) throw error;
+      self.drawMarkers(); //then show markers
+    });
 }
 
 Map.prototype.drawMap = function(us) {
@@ -287,7 +307,7 @@ d3.select('#splash-button').on('click',function(){
      .style("top", function(){ return this.offsetHeight + "px" })
      .on("end", function(){
        this.style.display = 'none';
-       map.drawMarkers();
+       map.start();
      });
 });
 //util
