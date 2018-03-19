@@ -35,10 +35,17 @@
 
 }
 #splash-text{
+  font-family: 'Open Sans', sans-serif !important;
   font-weight:normal;
-  font-size:25px;
+  font-size:1.95rem;
+
   color:white;
   margin-top:20px
+}
+.index-title{
+  font-size: 3rem;
+  text-align: center;
+  vertical-align: middle;
 }
 .splash-hero{
   -webkit-animation: fadein 2s forwards;
@@ -177,11 +184,18 @@ body {
 
 }
 
+@media (max-width: 1312px) {
+  .index-title{
+  font-size: 2rem;
+}
+}
+
 @media (max-width: 768px) {
     .header {
 
     	padding-top: 0px;
     }
+    
 }
 
 @media (max-width: 992px) and (min-width: 0px) {
