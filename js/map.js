@@ -212,7 +212,7 @@ Map.prototype.loadTimeline = function(){
                                                        .filter(function(e){ return e.category === chapter.key }))
                                   .enter()
                                   .append('div')
-                                  .attr('class', 'post')
+                                  .attr('class', 'post my-4 pt-2')
                                   .attr('id', function(p){
                                     var id = p.slug;
                                     self.index.push("id-" + id);
