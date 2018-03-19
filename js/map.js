@@ -159,7 +159,7 @@ Map.prototype.drawMarkers = function(){
       var timeline = document.getElementById("social-content");
       var h = timeline.getBoundingClientRect().height;
       self.lazyLoadElement(ele);
-      timeline.scrollTo(ele.offsetWidth, ele.offsetTop - h/2);
+      timeline.scrollTo(0, ele.offsetTop);
     }
     function mouseOut(d, i) {
       self.toggleToolTip(false);
