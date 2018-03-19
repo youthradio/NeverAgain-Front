@@ -138,7 +138,18 @@ body {
 	background:linear-gradient(transparent 150px, white);
 	left:0;
   top:0;
+}
 
+a:hover{
+  color: #3b94d9;
+}
+
+a {
+  color: #2b7bb9;
+}
+
+.post a{
+  color: #ffe0b5;
 }
 
 .endingScroll {
