@@ -134,7 +134,7 @@ body {
   top:0;
 
 }
-  
+
 .endingScroll {
     margin-top: 1600px;
 }
@@ -371,7 +371,7 @@ body {
     position: absolute;
     text-align: center;
     padding: 10px;
-    font: 1rem sans-serif;
+    font: 0.8em sans-serif;
     color: #fdffff;
     background: #280000;
     border: 0px;
