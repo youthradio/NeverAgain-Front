@@ -89,7 +89,7 @@
 }
 .bg {
 
-  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('../img/fullbg.png');
+  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('../img/fullbg.jpg');
   background-size: cover;
   background-position:center;
 
