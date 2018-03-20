@@ -220,8 +220,14 @@ Map.prototype.loadTimeline = function(){
                                   })
                                   .attr('data-social', function(post){ if(post.social.length > 0){ return post.social[0].type }})
                                   .html(function(post){
-                                    // return ("<h3 class='display-4'>" + post.geo.suburb +"</h3>" + (post.social.length > 0 ? post.social[0]:""));
-                                    return ("<h4>" + post.geo.suburb +"</h4>" + (post.social.length > 0 ? post.social[0].embed:""));
+                                    if(post.social[0].type == 'twitter'){
+                                        var twtPofileURL = post.social[0].url.split('status')[0] + 'profile_image?size=bigger';
+                                        var twtEmbed = post.social[0].embed.split(/(>)/);
+                                        twtEmbed.splice(2,0,"<img src='" + twtPofileURL + "'>");
+                                        var top = '<h4>' + post.geo.suburb +  '</h4>';
+                                        return top  + twtEmbed.join('');
+                                    }
+                                    return ("<h4>" + post.geo.suburb + "</h4>" + (post.social.length > 0 ? post.social[0].embed:""));
                                   });
 
               });
