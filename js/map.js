@@ -315,7 +315,7 @@ Map.prototype.lazyLoadElement = function(ele) {
 //start new instance of map
 var map = new Map({
   width: 960,
-  height: 500,
+  height: 600,
   container: d3.select("#map")
 });
 
