@@ -43,7 +43,7 @@
   margin-top:20px
 }
 .index-title{
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
   vertical-align: middle;
 }
@@ -89,7 +89,7 @@
 }
 .bg {
 
-  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('../img/fullbg.png');
+  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('../img/fullbg.jpg');
   background-size: cover;
   background-position:center;
 
@@ -159,7 +159,6 @@ a {
 .header {
     background-color: black;
     text-shadow: 3px 4px 8px #505050;
-    padding-top: 10px;
 }
 
 @media (max-width: 414px) {
@@ -184,7 +183,7 @@ a {
 
 }
 
-@media (min-width: 415px) {
+@media (min-width: 580px) {
    #yrlogofull{
       display:block;
     }
@@ -194,22 +193,18 @@ a {
 
 }
 
-@media (max-width: 1312px) {
+@media (max-width: 620px) {
   .index-title{
-  font-size: 2rem;
+    font-size: 1.2rem;
+  }
 }
-}
-
-@media (max-width: 768px) {
-    .header {
-
-    	padding-top: 0px;
-    }
-
+@media (max-width: 320px) {
+  .index-title{
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 992px) and (min-width: 0px) {
-
 
 
 }
@@ -217,7 +212,6 @@ a {
 
     .header {
         background-color: transparent;
-        padding-top: 0px;
     }
     .social-logos{
       display:inline-block;
