@@ -221,9 +221,9 @@ Map.prototype.loadTimeline = function(){
                                   .attr('data-social', function(post){ if(post.social.length > 0){ return post.social[0].type }})
                                   .html(function(post){
                                     if(post.social[0].type == 'twitter'){
-                                        var twtPofileURL = post.social[0].url.split('status')[0] + 'profile_image?size=bigger';
+                                        var twtPofileURL = "https://neveragain.youthradio.org/api/twitter/" + post.social[0].url.split('status')[0].split('/')[3];
                                         var twtEmbed = post.social[0].embed.split(/(>)/);
-                                        twtEmbed.splice(2,0,"<img src='" + twtPofileURL + "'>");
+                                        twtEmbed.splice(2,0,"<img class='rounded-circle' src='" + twtPofileURL + "'>");
                                         var top = '<h4>' + post.geo.suburb +  '</h4>';
                                         return top  + twtEmbed.join('');
                                     }
