@@ -32,6 +32,9 @@
 </head>
 
 <body>
+
+<!--Splash Page  -->
+
   <div class="container-fluid" id="splash-bg">
     <div class="row text-center" id="splash-content">
       <div class="col-12 position-fixed splash-hero">
@@ -54,6 +57,9 @@
       </div>
     </div>
   </div>
+
+<!-- Map Page -->
+
   <div class="container-fluid bg h-100" id="map-page">
     <div class="row header text-center py-1" id="title">
       <!-- When building the CSS, make a class that removes the black background and changes the text white when the media query reaches lg. -->
@@ -88,27 +94,55 @@
         </div>
       </div>
       <div class="col-12 pt-3 pt-lg-0 col-lg-4 order-2 order-lg-4 text-light">
-        <div id="social-content" class="text-center col-12">
-          <div class="details text-left">
-            <h1 id="date" class="display-4"></h1>
-            <h3 id="location" class="display-4"></h3>
+        <div id="social-content-parent" class="text-center col-12">
+          <div id="social-content">
           </div>
+
+          <div class="footer2">
+            <div class="row text-white d-sm-block d-lg-none pb-5 pt-2">
+              <div class="col-12">
+                <div class="h-100">
+                  <div class="col-12">
+                  <div class="mx-2 my-1 d-inline d-lg-none">
+                      Want more coverage of the movement? <a href="" class="text-white">Click Here</a>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                  <div class="mx-2 my-1">
+                    <div id="mc_embed_signup">
+                        <form action="https://youthradio.us4.list-manage.com/subscribe/post?u=962a6c84da5c12bc5b3486086&amp;id=77a1c5e71a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                          <div class="d-flex align-items-center align-self-center justify-content-center">
+                              <input type="email" value="" name="EMAIL" class="email my-1 d-inline mx-1"  placeholder="Subscribe to Youth Radio" required>
+                              <input type="submit" value="Subscribe" name="subscribe"  class="button btn btn-sm btn-outline-light subscribe-button d-inline my-1 mx-1">
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
+
     <!-- Footer -->
-    <div class="row fixed-bottom text-white" id="footer" hidden="true">
-      <div class="col-12">
-        <div class="d-flex align-items-center justify-content-between h-100">
-          <div class="mx-2 my-1 d-md-inline d-none">
-              Want more coverage of the movement? <a href="" class="text-white">Click Here</a>
-            </div>
-          <div class="mx-2 my-1">
-                <form action="https://youthradio.us4.list-manage.com/subscribe/post?u=962a6c84da5c12bc5b3486086&amp;id=77a1c5e71a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                      <input type="email" value="" name="EMAIL" class="email"  placeholder="Subscribe to Youth Radio" required>
-                      <input type="submit" value="Subscribe" name="subscribe"  class="button btn btn-sm">
-                </form>
-            </div>
+    <div  id="footer-container" hidden="true">
+      <div class="row fixed-bottom text-white d-none d-lg-inline footer">
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-between h-100">
+            <div class="mx-2 my-1 d-md-inline d-none">
+                Want more coverage of the movement? <a href="" class="text-white">Click Here</a>
+              </div>
+            <div class="mx-2 my-1">
+                  <form action="https://youthradio.us4.list-manage.com/subscribe/post?u=962a6c84da5c12bc5b3486086&amp;id=77a1c5e71a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                        <input type="email" value="" name="EMAIL" class="email"  placeholder="Subscribe to Youth Radio" required>
+                        <input type="submit" value="Subscribe" name="subscribe"  class="button btn btn-sm btn-outline-light subscribe-button">
+                  </form>
+              </div>
+          </div>
         </div>
       </div>
     </div>
