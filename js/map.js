@@ -336,6 +336,7 @@ d3.select('#splash-button').on('click',function(){
      .on("end", function(){
        this.style.display = 'none';
        map.start();
+       document.getElementById('footer').hidden = false;
      });
 });
 //util

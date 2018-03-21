@@ -9,6 +9,28 @@
 .instagram-media-rendered{
   margin: auto!important;
 }
+#footer{
+  background-color:rgb(28, 35, 56);
+  font-family: "Open Sans", Sans;
+  font-size:1rem;
+}
+#splash-button{
+  font-weight:normal;
+  font-size:40px;
+  color:white;
+  margin-top:40px
+  border:solid white 3px;
+}
+#splash-button:hover{
+  font-weight:normal;
+  font-size:40px;
+  margin-top:40px
+
+  border:solid white 3px;
+}
+.email{
+  border-radius:3px;
+}
 #map-page{
   z-index: 0;
 }
@@ -65,26 +87,13 @@
   100% {opacity: 1;}
 }
 
-.btn{
-  font-weight:normal;
-  font-size:40px;
-  color:white;
-  margin-top:40px
-  border:solid white 3px;
-}
-.btn:hover{
-  font-weight:normal;
-  font-size:40px;
-  margin-top:40px
 
-  border:solid white 3px;
-}
 
 
 /*Main Page CSS */
 
 #title{
-  background-color:rgba(87, 72, 155, 0.73);
+  background-color:rgb(44, 55, 89);
 
 }
 .bg {
@@ -157,7 +166,7 @@ a {
 }
 
 .header {
-    background-color: black;
+    background-color:rgb(44, 55, 89);
     text-shadow: 3px 4px 8px #505050;
 }
 
