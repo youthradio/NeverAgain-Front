@@ -203,7 +203,7 @@ a {
 /* https://coolors.co/fdffff-b10f2e-570000-280000-de7c5a */
 .marker {
     opacity: 1;
-    fill: #b10f2e;
+    fill: #b10f2e; 
     stroke-width: 5;
     stroke: black;
 
@@ -214,26 +214,27 @@ a {
     /* fill: #c65067; */
     opacity: 1;
 }
+
 .marker-chapter-3 {
-  fill: #bd0026;
-}
-.marker-chapter-6 {
-    fill: #e31a1c;
-}
-.marker-chapter-5 {
-    fill: #fc4e2a;
-}
-.marker-chapter-4 {
-    fill: #fd8d3c;
-}
-.marker-chapter-7 {
-    fill: #feb24c;
-}
-.marker-chapter-2 {
-    fill: #fed976;
+    fill: #bd0026;
 }
 .marker-chapter-1 {
-    fill: #ffeda0;
+    fill: #58ACB5;
+}
+.marker-chapter-2 {
+    fill: #fd8559;
+}
+.marker-chapter-4 {
+    fill: #9FCD5E;
+}
+.marker-chapter-5 {
+    fill: #FBC35D;
+}
+.marker-chapter-6 {
+    fill: #FD8559;
+}
+.marker-chapter-7 {
+    fill: #A61543;
 }
 
 .chapter-header {
@@ -270,24 +271,48 @@ h4{
 #chapter-3 h3{
     color: #bd0026;
 }
-#chapter-6 h3{
-    color: #e31a1c;
-}
-#chapter-5 h3{
-    color: #fc4e2a;
-}
-#chapter-4 h3{
-    color: #fd8d3c;
-}
-#chapter-7 h3{
-    color: #feb24c;
+#chapter-1 h3{
+    color: #58ACB5;
 }
 #chapter-2 h3{
-    color: #fed976;
+    color: #fd8559;
 }
-#chapter-1 h3{
-    color: #ffeda0;
+#chapter-4 h3{
+    color: #9FCD5E;
 }
+#chapter-5 h3{
+    color: #FBC35D;
+}
+#chapter-6 h3{
+    color: #FD8559;
+}
+#chapter-7 h3{
+    color: #A61543;
+}
+
+
+#chapter-3 h4{
+    color: #bd0026;
+}
+#chapter-1 h4{
+    color: #58ACB5;
+}
+#chapter-2 h4{
+    color: #fd8559;
+}
+#chapter-4 h4{
+    color: #9FCD5E;
+}
+#chapter-5 h4{
+    color: #FBC35D;
+}
+#chapter-6 h4{
+    color: #FD8559;
+}
+#chapter-7 h4{
+    color: #A61543;
+}
+
 .states {
   stroke: #0a090c;
   stroke-width: 1px;
