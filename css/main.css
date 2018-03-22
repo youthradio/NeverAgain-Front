@@ -17,14 +17,13 @@
 .footer2{
   font-family: "Oswald", Sans;
   font-size:1rem;
-  margin-bottom:px;
+  margin-bottom:10px;
 }
 .subscribe-button{
   height:30px;
 }
 #splash-button{
   font-weight:normal;
-  font-size:5vw;
   border:solid white 3px;
 }
 #splash-button:hover{
@@ -34,7 +33,7 @@
 }
 .email{
   border-radius:3px;
-  width: 100%;
+  width: 160px;
 }
 #map-page{
   z-index: 0;
@@ -70,7 +69,6 @@
   margin-top:20px
 }
 .index-title{
-  font-size: 2.5rem;
   text-align: center;
   vertical-align: middle;
 }
@@ -99,7 +97,6 @@
 
 #title{
   background-color:rgb(44, 55, 89);
-
 }
 .bg {
 
@@ -107,15 +104,6 @@
   background-size: cover;
   background-position:center;
 
-}
-.social-logos{
-  display:none;
-}
-#yrlogofull{
-  display:none;
-}
-#yrlogocircle{
-  display:block;
 }
 /*.map-1 {
     padding-top: 50px;
@@ -175,72 +163,42 @@ a {
     text-shadow: 3px 4px 8px #505050;
 }
 
-@media (max-width: 414px) {
-    .details
-    h2,
-    h3 {
-        font-size: 25px !important;
-    }
-    h1 {
-      font-size: 35px;
-    }
-
-    #splash-title{
-    margin-top:125px;
-    font-size: 30px;
-
-}
-
-#splash-text{
-  font-size:15px;
-}
-
-}
-
-@media (min-width: 580px) {
-   #yrlogofull{
-      display:block;
-    }
-    #yrlogocircle{
-      display:none;
-    }
-
-}
-
-@media (max-width: 620px) {
+@media (max-width: 576px) {
+  #splash-title{
+    /* margin-top:125px; */
+    font-size: 2rem;
+  }
+  #splash-text{
+    font-size: 1rem;
+  }
   .index-title{
-    font-size: 1.2rem;
+    font-size: 1.0rem;
+  }
+  #splash-button{
+    font-size: 1.1rem;
   }
 }
-@media (max-width: 320px) {
+@media (min-width: 576px) {
   .index-title{
-    font-size: 0.8rem;
+    font-size: 2rem;
   }
-}
-
-@media (max-width: 992px) and (min-width: 0px) {
-
-
+  #splash-title{
+    /* margin-top:125px; */
+    font-size: 3rem;
+  }
+  #splash-text{
+    font-size: 2rem;
+  }
+  #splash-button{
+    font-size: 1.5rem;
+  }
 }
 @media (min-width: 992px) {
 
-    .header {
-        background-color: transparent;
-    }
-    .social-logos{
-      display:inline-block;
-    }
-    #yrlogofull{
-      display:block;
-    }
-    #yrlogocircle{
-      display:none;
-    }
-    .map-1 {
-        padding-top: 100px;
-    }
 }
+@media (min-width: 1200px) {
 
+}
 /* Map Viz CSS */
 /* https://coolors.co/fdffff-b10f2e-570000-280000-de7c5a */
 .marker {
