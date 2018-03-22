@@ -232,6 +232,9 @@ a {
 .marker {
     opacity: 1;
     fill: #b10f2e;
+    stroke-width: 3;
+    stroke: black;
+
     /* -webkit-filter: drop-shadow( 1px 1px 2px #000 );
     filter: drop-shadow( 1px 1px 2px #000 ); */
 }
@@ -395,4 +398,19 @@ h1{
     border: 0px;
     border-radius: 5px;
     pointer-events: none;
+}
+
+.hidden {
+    opacity: 0.2;
+    transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+}
+.active {
+    opacity: 1;
+    transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
 }

@@ -196,6 +196,8 @@ Map.prototype.loadTimeline = function(){
           .append('div')
           .attr('id', function(e){ return e.key })
           .attr('data-social', 'chapter')
+          .each(function(e, i){ i > 0 ? d3.select(this).attr('class', 'hidden'): null
+          })
           .append('div')
           .attr('class', 'chapter-header')
           .html(function(chapter){
@@ -204,7 +206,6 @@ Map.prototype.loadTimeline = function(){
 
   self.chapters.exit().remove();
 
-  self.index = [];
   self.chapters.enter()
               .each(function(chapter) {
                   d3.select('#' + chapter.key).selectAll('div').select('div')
@@ -212,10 +213,9 @@ Map.prototype.loadTimeline = function(){
                                                        .filter(function(e){ return e.category === chapter.key }))
                                   .enter()
                                   .append('div')
-                                  .attr('class', 'post my-4 pt-2')
+                                  .attr('class', 'hidden post my-4 pt-2')
                                   .attr('id', function(p){
                                     var id = p.slug;
-                                    self.index.push("id-" + id);
                                     return "post-id-" + id;
                                   })
                                   .attr('data-social', function(post){ if(post.social.length > 0){ return post.social[0].type }})
@@ -259,49 +259,67 @@ Map.prototype.enableScrollEvents = function(){
 
   var currentPostId = -1;
   var lastPostId = -1;
+  var currentChapterId = -1;
+  var lastChapterId = -1;
+
   document.getElementById("social-content").addEventListener("scroll", function (event) {
     var box = this;
     var h = box.getBoundingClientRect().height;
-    self.index.forEach(function(p,i){
-      var visibleEle = document.getElementById("post-" + p);
-      var visibleElerec = visibleEle.getBoundingClientRect();
-      if((box.scrollTop + h/2) >= visibleEle.offsetTop && (box.scrollTop + h/2) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
-        lastPostId = currentPostId;
-        currentPostId = i;
-        if(visibleEle.getAttribute('data-social') === 'twitter'){
-            self.lazyLoadElement(visibleEle);
-        }
-        var markerOn = d3.select("#" + p);
-        d3.select(markerOn.node().parentNode).raise(); //raise marker to front
-        var transform = markerOn.attr("transform");
-        var scaleV = 0.08;
-        markerOn
-          .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]))
-          .transition()
-          .ease(d3.easeExp)
-          .duration(800)
-          .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
-          .on("end", function(){
-            var markerBox = markerOn.node().getBoundingClientRect();
-            self.toggleToolTip(true,[markerBox.x, markerBox.y], markerOn.attr('data-loc'));
-          });
 
-        if(lastPostId !== -1){
-          var markerOff = d3.select("#" + self.index[lastPostId]);
-          var transformOff = markerOff.attr("transform");
-          self.toggleToolTip(false);
-          markerOff
-            .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
-            .transition()
-            .ease(d3.easeExp)
-            .duration(800)
-            .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
+    this.querySelectorAll("[data-social=chapter]").forEach(function(chapter){
+        if(self.isElementOnScreen(box, chapter, h/2) && currentChapterId !==  chapter.id){
+          lastChapterId = currentChapterId;
+          currentChapterId = chapter.id;
+          chapter.classList.replace('hidden','active');
+          if(lastChapterId !== -1){
+            document.getElementById(lastChapterId).classList.replace('active','hidden');
+          }
         }
-      }
-    });
+        chapter.querySelectorAll('.post').forEach(function(visibleEle){
+          if(self.isElementOnScreen(box, visibleEle, h/2) && currentPostId !==  visibleEle.id){
+            lastPostId = currentPostId;
+            currentPostId = visibleEle.id;
+
+            if(visibleEle.getAttribute('data-social') === 'twitter'){
+                self.lazyLoadElement(visibleEle);
+            }
+            var markerOn = d3.select('#' + visibleEle.id.split('post-')[1]); //select marker
+            d3.select(markerOn.node().parentNode).raise(); //raise marker to front
+            var transform = markerOn.attr("transform"); //get transform attributes
+            //start transiton
+            markerOn
+              .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]))
+              .transition()
+              .ease(d3.easeExp)
+              .duration(800)
+              .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
+              .on("end", function(){
+                var markerBox = markerOn.node().getBoundingClientRect();
+                self.toggleToolTip(true,[markerBox.x, markerBox.y], markerOn.attr('data-loc'));
+              });
+              visibleEle.classList.replace('hidden','active');
+              //if is an new post, transform last marker
+              if(lastPostId !== -1){
+                document.getElementById(lastPostId).classList.replace('active','hidden');
+                var markerOff = d3.select('#' + lastPostId.split('post-')[1]);
+                var transformOff = markerOff.attr("transform");
+                self.toggleToolTip(false);
+                markerOff
+                  .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
+                  .transition()
+                  .ease(d3.easeExp)
+                  .duration(800)
+                  .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
+              }
+          }
+        }); //loop chapter elemetns
+    }); //loop chapters
   });
 }
-
+Map.prototype.isElementOnScreen = function(box, visibleEle, position){
+  var visibleElerec = visibleEle.getBoundingClientRect();
+  return ((box.scrollTop + position) >= visibleEle.offsetTop && (box.scrollTop + position) <= (visibleEle.offsetTop + visibleElerec.height));
+}
 Map.prototype.lazyLoadElement = function(ele) {
   //create virtual script and force dom to load it
   if(ele.querySelector('.lazy-load') !== null){
