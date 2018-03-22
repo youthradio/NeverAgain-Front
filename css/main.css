@@ -24,17 +24,13 @@
 }
 #splash-button{
   font-weight:normal;
-  font-size:40px;
-  color:white;
-  margin-top:40px
+  font-size:5vw;
   border:solid white 3px;
 }
 #splash-button:hover{
   font-weight:normal;
-  font-size:40px;
-  margin-top:40px
-  color:#2b3a63;
   border:solid white 3px;
+  color:#2b3f66;
 }
 .email{
   border-radius:3px;
