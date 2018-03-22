@@ -160,6 +160,7 @@ Map.prototype.drawMarkers = function(){
       var h = timeline.getBoundingClientRect().height;
       self.lazyLoadElement(ele);
       timeline.scrollTo(0, ele.offsetTop);
+      ele.classList.replace('hidden','active');
     }
     function mouseOut(d, i) {
       self.toggleToolTip(false);
