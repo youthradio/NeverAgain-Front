@@ -142,6 +142,7 @@ Map.prototype.drawMarkers = function(){
     })
     .each(function() { ++n; })
     .on("end", function() {
+      d3.select(this).node().parentNode.classList.add('hidden-marker');
       if (!--n) self.enableScrollEvents(); //enable scroll events afer markers fixed
     });
 
@@ -197,7 +198,7 @@ Map.prototype.loadTimeline = function(){
           .append('div')
           .attr('id', function(e){ return e.key })
           .attr('data-social', 'chapter')
-          .each(function(e, i){ i > 0 ? d3.select(this).attr('class', 'hidden'): null
+          .each(function(e, i){ (i > 0 && i < self.chapters.length)? d3.select(this).attr('class', 'hidden'): null
           })
           .append('div')
           .attr('class', 'chapter-header')
@@ -272,8 +273,18 @@ Map.prototype.enableScrollEvents = function(){
           lastChapterId = currentChapterId;
           currentChapterId = chapter.id;
           chapter.classList.replace('hidden','active');
+          chapter.querySelectorAll('.post').forEach(function(marker){
+            var markerOn = d3.select('#' + marker.id.split('post-')[1]); //select marker
+            d3.select(markerOn.node().parentNode).raise(); //raise marker to front
+            markerOn.node().parentNode.classList.replace('hidden-marker', 'active');
+          });
           if(lastChapterId !== -1){
-            document.getElementById(lastChapterId).classList.replace('active','hidden');
+            var lastChapter = document.getElementById(lastChapterId);
+            lastChapter.classList.replace('active','hidden');
+            lastChapter.querySelectorAll('.post').forEach(function(marker){
+              var markerOff = d3.select('#' + marker.id.split('post-')[1]); //select marker
+              markerOff.node().parentNode.classList.replace('active', 'hidden-marker');
+            });
           }
         }
         chapter.querySelectorAll('.post').forEach(function(visibleEle){

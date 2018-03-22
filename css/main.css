@@ -34,6 +34,7 @@
 }
 .email{
   border-radius:3px;
+  width: 100%;
 }
 #map-page{
   z-index: 0;
@@ -419,6 +420,13 @@ h1{
     -moz-transition: opacity 500ms;
     -webkit-transition: opacity 500ms;
     -o-transition: opacity 500ms;
+}
+.hidden-marker {
+    opacity: 0.3;
+    transition: opacity 1000ms;
+    -moz-transition: opacity 1000ms;
+    -webkit-transition: opacity 1000ms;
+    -o-transition: opacity 1000ms;
 }
 .active {
     opacity: 1;
