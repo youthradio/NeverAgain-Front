@@ -1,5 +1,5 @@
-const MARKER_S_MIN = 0.07
-const MARKER_S_MAX = 0.15
+const MARKER_S_MIN = 0.07;
+const MARKER_S_MAX = 0.15;
 const SCRIPT = {
   instagram: {
     src: "https://www.instagram.com/embed.js",
@@ -198,7 +198,8 @@ Map.prototype.loadTimeline = function(){
           .append('div')
           .attr('id', function(e){ return e.key })
           .attr('data-social', 'chapter')
-          .each(function(e, i){ (i > 0 && i < self.chapters.length)? d3.select(this).attr('class', 'hidden'): null
+          .each(function(e, i){
+                if(i > 0 && i < self.chapters.enter().size() - 1) d3.select(this).attr('class', 'hidden')
           })
           .append('div')
           .attr('class', 'chapter-header')
