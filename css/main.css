@@ -204,7 +204,7 @@ a {
 .marker {
     opacity: 1;
     fill: #b10f2e;
-    stroke-width: 3;
+    stroke-width: 5;
     stroke: black;
 
     /* -webkit-filter: drop-shadow( 1px 1px 2px #000 );
@@ -212,28 +212,28 @@ a {
 }
 .marker:hover {
     /* fill: #c65067; */
-    opacity: 0.8;
-}
-.marker-chapter-1 {
-  fill: #D65F23;
-}
-.marker-chapter-2 {
-    fill: #FF8552;
+    opacity: 1;
 }
 .marker-chapter-3 {
-    fill: #FFAC54;
-}
-.marker-chapter-4 {
-    fill: #FFA95C;
-}
-.marker-chapter-5 {
-    fill: #FFD866;
+  fill: #bd0026;
 }
 .marker-chapter-6 {
-    fill: #A6D154;A6D154
+    fill: #e31a1c;
+}
+.marker-chapter-5 {
+    fill: #fc4e2a;
+}
+.marker-chapter-4 {
+    fill: #fd8d3c;
 }
 .marker-chapter-7 {
-    fill: #fdbf6f;
+    fill: #feb24c;
+}
+.marker-chapter-2 {
+    fill: #fed976;
+}
+.marker-chapter-1 {
+    fill: #ffeda0;
 }
 
 .chapter-header {
@@ -263,74 +263,31 @@ h1{
   font-family: 'Oswald';
   font-size: 1.8rem;
 }
-
-
-#chapter-1 h4{
-  color: #D65F23;
+h4{
+  color:white;
 }
 
-#chapter-1 h3{
-  color: #D65F23;
-}
-
-#chapter-2 h4{
-  color: #FF8552;
-}
-#chapter-2 h3{
-  color: #FF8552;
-}
-#chapter-3 h4{
-  color: #FFA95C;
-}
 #chapter-3 h3{
-  color: #FFAC54;
-}
-#chapter-4 h4{
-  color: #FFA95C;
-}
-#chapter-4 h3{
-  color: #FFA95C;
-}
-#chapter-5 h4{
-  color: #FFD866;
-}
-#chapter-5 h3{
-  color: #FFD866;
-}
-#chapter-6 h4{
-  color: #A6D154;
+    color: #bd0026;
 }
 #chapter-6 h3{
-  color: #A6D154;
+    color: #e31a1c;
 }
-#chapter-7 h4{
-  color: #fdbf6f;
+#chapter-5 h3{
+    color: #fc4e2a;
+}
+#chapter-4 h3{
+    color: #fd8d3c;
 }
 #chapter-7 h3{
-  color: #fdbf6f;
+    color: #feb24c;
 }
-
-
-#chapter-2 {
-  /*background-color: #1f78b4;*/
+#chapter-2 h3{
+    color: #fed976;
 }
-#chapter-3 {
-  /*background-color: #b2df8a;*/
+#chapter-1 h3{
+    color: #ffeda0;
 }
-#chapter-4 {
-  /*background-color: #33a02c;*/
-}
-#chapter-5 {
-  /*background-color: #fb9a99;*/
-}
-#chapter-6 {
-  /*background-color: #e31a1c;*/
-}
-#chapter-7 {
-  /*background-color: #fdbf6f;*/
-}
-
-
 .states {
   stroke: #0a090c;
   stroke-width: 1px;
