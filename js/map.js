@@ -56,7 +56,7 @@ Map.prototype.resize = function() {
  }else{
    var newHeight = 'calc(100vh - ' + document.getElementById('title').offsetHeight + 'px';
  }
-  document.getElementById('social-content').style.height = newHeight;
+  document.getElementById('social-content-parent').style.height = newHeight;
 }
 
 Map.prototype.loadData = function(){
@@ -156,7 +156,7 @@ Map.prototype.drawMarkers = function(){
     }
     function mouseClick(e, i) {
       var ele = document.getElementById("post-id-" + e.slug);
-      var timeline = document.getElementById("social-content");
+      var timeline = document.getElementById("social-content-parent");
       var h = timeline.getBoundingClientRect().height;
       self.lazyLoadElement(ele);
       timeline.scrollTo(0, ele.offsetTop);
@@ -253,13 +253,13 @@ Map.prototype.enableScrollEvents = function(){
   var scrollEvent = d3.select(window).on("wheel.zoom", mouseWheelScrool);
   function mouseWheelScrool(e){
     d3.event.preventDefault();
-    var ele = document.getElementById("social-content");
+    var ele = document.getElementById("social-content-parent");
     ele.scrollTop += d3.event.deltaY;
   }
 
   var currentPostId = -1;
   var lastPostId = -1;
-  document.getElementById("social-content").addEventListener("scroll", function (event) {
+  document.getElementById("social-content-parent").addEventListener("scroll", function (event) {
     var box = this;
     var h = box.getBoundingClientRect().height;
     self.index.forEach(function(p,i){
@@ -336,6 +336,7 @@ d3.select('#splash-button').on('click',function(){
      .on("end", function(){
        this.style.display = 'none';
        map.start();
+       document.getElementById('footer-container').hidden = false;
      });
 });
 //util
