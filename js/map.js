@@ -161,7 +161,7 @@ Map.prototype.drawMarkers = function(){
       var h = timeline.getBoundingClientRect().height;
       self.lazyLoadElement(ele);
       timeline.scrollTo(0, ele.offsetTop);
-      ele.classList.replace('hidden','active');
+      replaceClass(ele, 'hidden','active');
     }
     function mouseOut(d, i) {
       self.toggleToolTip(false);
@@ -273,18 +273,18 @@ Map.prototype.enableScrollEvents = function(){
         if(self.isElementOnScreen(box, chapter, h/2) && currentChapterId !==  chapter.id){
           lastChapterId = currentChapterId;
           currentChapterId = chapter.id;
-          chapter.classList.replace('hidden','active');
+          replaceClass(chapter,'hidden','active');
           chapter.querySelectorAll('.post').forEach(function(marker){
             var markerOn = d3.select('#' + marker.id.split('post-')[1]); //select marker
             d3.select(markerOn.node().parentNode).raise(); //raise marker to front
-            markerOn.node().parentNode.classList.replace('hidden-marker', 'active');
+            replaceClass(markerOn.node().parentNode,'hidden-marker','active');
           });
           if(lastChapterId !== -1){
             var lastChapter = document.getElementById(lastChapterId);
-            lastChapter.classList.replace('active','hidden');
+            replaceClass(lastChapter,'active','hidden');
             lastChapter.querySelectorAll('.post').forEach(function(marker){
               var markerOff = d3.select('#' + marker.id.split('post-')[1]); //select marker
-              markerOff.node().parentNode.classList.replace('active', 'hidden-marker');
+              replaceClass(markerOff.node().parentNode,'active', 'hidden-marker');
             });
           }
         }
@@ -310,10 +310,10 @@ Map.prototype.enableScrollEvents = function(){
                 var markerBox = markerOn.node().getBoundingClientRect();
                 self.toggleToolTip(true,[markerBox.x, markerBox.y], markerOn.attr('data-loc'));
               });
-              visibleEle.classList.replace('hidden','active');
+              replaceClass(visibleEle, 'hidden','active');
               //if is an new post, transform last marker
               if(lastPostId !== -1){
-                document.getElementById(lastPostId).classList.replace('active','hidden');
+                replaceClass(document.getElementById(lastPostId), 'active','hidden');
                 var markerOff = d3.select('#' + lastPostId.split('post-')[1]);
                 var transformOff = markerOff.attr("transform");
                 self.toggleToolTip(false);
@@ -378,4 +378,8 @@ function getTransform(str, mode){
 }
 function setTransform(mode, value){
      return mode + "(" +  value.join(',') + ")";
+}
+function replaceClass(ele, oldClass, newClass){
+  var s = ele.getAttribute('class');
+  ele.setAttribute('class', s.replace(oldClass, newClass));
 }
