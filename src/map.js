@@ -152,9 +152,9 @@ Map.prototype.drawMarkers = function(){
 
 
     function mouseOver(e, i) {
+      d3.event.stopPropagation();
       self.toggleToolTip(true, [d3.event.pageX, d3.event.pageY], e.geo.suburb + " " + e.geo.state)
       var transform = d3.select(this).attr("transform");
-      var scaleV = 0.06;
       d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]));
       d3.select(this.parentNode).raise();
     }
@@ -168,9 +168,9 @@ Map.prototype.drawMarkers = function(){
       replaceClass(ele, 'hidden','active');
     }
     function mouseOut(d, i) {
+      d3.event.stopPropagation();
       self.toggleToolTip(false);
       var transform = d3.select(this).attr("transform");
-      var scaleV = -0.06;
       d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
       d3.select(this.parentNode).raise();
     }
