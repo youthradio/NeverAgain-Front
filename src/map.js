@@ -159,6 +159,7 @@ Map.prototype.drawMarkers = function(){
       d3.select(this.parentNode).raise();
     }
     function mouseClick(e, i) {
+      d3.event.stopPropagation();
       var ele = document.getElementById("post-id-" + e.slug);
       var timeline = document.getElementById("social-content-parent");
       var h = timeline.getBoundingClientRect().height;
