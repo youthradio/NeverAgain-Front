@@ -1,5 +1,4 @@
-import * as d3 from 'd3';
-import * as queue from "d3-queue";
+import d3 from './d3';
 import * as topojson from 'topojson';
 
 const MARKER_S_MIN = 0.07;
@@ -66,7 +65,7 @@ Map.prototype.resize = function() {
 Map.prototype.loadData = function(){
   var self = this;
 
-  queue.queue()
+  d3.queue()
     .defer(d3.json, "assets/data/us-light.json") //load us map data
     .defer(d3.xml, "assets/map-marker.svg")//load marker from external svg from a file
     .defer(d3.json, "https://neveragain.youthradio.org/api/posts") //fetch data form api
@@ -82,7 +81,7 @@ Map.prototype.loadData = function(){
 Map.prototype.start = function(){
   var self = this;
 
-  queue.queue()
+  d3.queue()
     .defer(function(callback){
       checkLoadedData(); //wait all data to be load
       function checkLoadedData() {
