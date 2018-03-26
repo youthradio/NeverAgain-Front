@@ -44,7 +44,7 @@
   background-image:linear-gradient(
   	               rgba(44, 34, 93, 0.3),
   	               rgba(44, 34, 93, 0.8)),
-                   url("../img/splash-bg.jpg")
+                   url("assets/img/splash-bg.jpg")
 }
 
 #splash-color{
@@ -100,7 +100,7 @@
 }
 .bg {
 
-  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('../img/fullbg.jpg');
+  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('assets/img/fullbg.jpg');
   background-size: cover;
   background-position:center;
 
@@ -316,7 +316,7 @@ h4{
 .states {
   stroke: #0a090c;
   stroke-width: 1px;
-  fill: #f0edee
+  fill: #f0edee;
   stroke-linejoin: round;
 }
 .states :hover {
