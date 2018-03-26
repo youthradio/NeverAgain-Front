@@ -1,5 +1,12 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: "./src/index.html",
+  filename: "index.html",
+  inject: "body"
+});
 
 module.exports = merge(common, {
  devtool: 'inline-source-map',
@@ -15,5 +22,8 @@ module.exports = merge(common, {
          "css-loader?-url"]
      },
    ]
- }
+ },
+ plugins: [
+   HtmlWebpackPluginConfig,
+ ]
 });

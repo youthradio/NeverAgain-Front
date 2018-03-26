@@ -2,13 +2,30 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const common = require('./webpack.common.js');
 
-
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: "./src/index.html",
+  filename: "index.html",
+  inject: "body",
+  minify: {
+    collapseWhitespace: true,
+    removeComments: true,
+    removeRedundantAttributes: true,
+    removeScriptTypeAttributes: true,
+    removeStyleLinkTypeAttributes: true
+  }
+});
 const extractCSS = new MiniCssExtractPlugin({
-  disable: process.env.NODE_ENV === "development",
   filename: "[name].css",
   chunkFilename: "[id].css"
+});
+const uglifyJS = new UglifyJSPlugin({
+   sourceMap: true
+});
+const defineMode = new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('production')
 });
 
 module.exports = merge(common, {
@@ -24,12 +41,9 @@ module.exports = merge(common, {
    ]
  },
  plugins: [
+   HtmlWebpackPluginConfig,
    extractCSS,
-   new UglifyJSPlugin({
-      sourceMap: true
-   }),
-   new webpack.DefinePlugin({
-       'process.env.NODE_ENV': JSON.stringify('production')
-   })
+   uglifyJS,
+   defineMode
  ]
 });
