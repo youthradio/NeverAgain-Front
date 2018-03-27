@@ -201,7 +201,7 @@ a {
   #list-nav{
   font-size: 0.8rem;
   }
-  
+
 }
 @media (min-width: 992px) {
 #list-nav{
@@ -266,15 +266,7 @@ a {
   font-family: "Open Sans", sans;
   text-transform: uppercase;
   list-style-type: none;
-    margin: 0;
-    padding: 0;
 }
-
-#list-nav a{
-  display: inline;
-  padding-right: 5%;
-}
-
 
 p {
   font-family: 'Open Sans', sans-serif !important;
