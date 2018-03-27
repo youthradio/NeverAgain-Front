@@ -180,6 +180,9 @@ a {
   #splash-button{
     font-size: 1.1rem;
   }
+  #list-nav{
+  font-size: 0.8rem;
+  }
 }
 @media (min-width: 576px) {
   .index-title{
@@ -195,9 +198,15 @@ a {
   #splash-button{
     font-size: 1.5rem;
   }
+  #list-nav{
+  font-size: 0.8rem;
+  }
+  
 }
 @media (min-width: 992px) {
-
+#list-nav{
+  font-size: 1rem;
+  }
 }
 @media (min-width: 1200px) {
 
