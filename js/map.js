@@ -1,5 +1,5 @@
-const MARKER_S_MIN = 0.07
-const MARKER_S_MAX = 0.15
+const MARKER_S_MIN = 0.07;
+const MARKER_S_MAX = 0.15;
 const SCRIPT = {
   instagram: {
     src: "https://www.instagram.com/embed.js",
@@ -56,7 +56,7 @@ Map.prototype.resize = function() {
  }else{
    var newHeight = 'calc(100vh - ' + document.getElementById('title').offsetHeight + 'px';
  }
-  document.getElementById('social-content').style.height = newHeight;
+  document.getElementById('social-content-parent').style.height = newHeight;
 }
 
 Map.prototype.loadData = function(){
@@ -142,6 +142,7 @@ Map.prototype.drawMarkers = function(){
     })
     .each(function() { ++n; })
     .on("end", function() {
+      d3.select(this).node().parentNode.classList.add('hidden-marker');
       if (!--n) self.enableScrollEvents(); //enable scroll events afer markers fixed
     });
 
@@ -156,10 +157,11 @@ Map.prototype.drawMarkers = function(){
     }
     function mouseClick(e, i) {
       var ele = document.getElementById("post-id-" + e.slug);
-      var timeline = document.getElementById("social-content");
+      var timeline = document.getElementById("social-content-parent");
       var h = timeline.getBoundingClientRect().height;
       self.lazyLoadElement(ele);
       timeline.scrollTo(0, ele.offsetTop);
+      replaceClass(ele, 'hidden','active');
     }
     function mouseOut(d, i) {
       self.toggleToolTip(false);
@@ -196,6 +198,9 @@ Map.prototype.loadTimeline = function(){
           .append('div')
           .attr('id', function(e){ return e.key })
           .attr('data-social', 'chapter')
+          .each(function(e, i){
+                if(i > 0 && i < self.chapters.enter().size() - 1) d3.select(this).attr('class', 'hidden')
+          })
           .append('div')
           .attr('class', 'chapter-header')
           .html(function(chapter){
@@ -204,7 +209,6 @@ Map.prototype.loadTimeline = function(){
 
   self.chapters.exit().remove();
 
-  self.index = [];
   self.chapters.enter()
               .each(function(chapter) {
                   d3.select('#' + chapter.key).selectAll('div').select('div')
@@ -212,22 +216,21 @@ Map.prototype.loadTimeline = function(){
                                                        .filter(function(e){ return e.category === chapter.key }))
                                   .enter()
                                   .append('div')
-                                  .attr('class', 'post my-4 pt-2')
+                                  .attr('class', 'hidden post my-4 pt-2')
                                   .attr('id', function(p){
                                     var id = p.slug;
-                                    self.index.push("id-" + id);
                                     return "post-id-" + id;
                                   })
                                   .attr('data-social', function(post){ if(post.social.length > 0){ return post.social[0].type }})
                                   .html(function(post){
+                                    var top = '<h4>' + post.geo.suburb + ' ' + post.geo.state + '</h4>';
                                     if(post.social[0].type == 'twitter'){
-                                        var twtPofileURL = post.social[0].url.split('status')[0] + 'profile_image?size=bigger';
+                                        var twtPofileURL = "https://neveragain.youthradio.org/api/twitter/" + post.social[0].url.split('status')[0].split('/')[3];
                                         var twtEmbed = post.social[0].embed.split(/(>)/);
-                                        twtEmbed.splice(2,0,"<img src='" + twtPofileURL + "'>");
-                                        var top = '<h4>' + post.geo.suburb +  '</h4>';
+                                        twtEmbed.splice(2,0,"<img class='rounded-circle' src='" + twtPofileURL + "'>");
                                         return top  + twtEmbed.join('');
                                     }
-                                    return ("<h4>" + post.geo.suburb + "</h4>" + (post.social.length > 0 ? post.social[0].embed:""));
+                                    return top + (post.social.length > 0 ? post.social[0].embed:"");
                                   });
 
               });
@@ -253,55 +256,83 @@ Map.prototype.enableScrollEvents = function(){
   var scrollEvent = d3.select(window).on("wheel.zoom", mouseWheelScrool);
   function mouseWheelScrool(e){
     d3.event.preventDefault();
-    var ele = document.getElementById("social-content");
+    var ele = document.getElementById("social-content-parent");
     ele.scrollTop += d3.event.deltaY;
   }
 
   var currentPostId = -1;
   var lastPostId = -1;
-  document.getElementById("social-content").addEventListener("scroll", function (event) {
+  var currentChapterId = -1;
+  var lastChapterId = -1;
+
+  document.getElementById("social-content-parent").addEventListener("scroll", function (event) {
     var box = this;
     var h = box.getBoundingClientRect().height;
-    self.index.forEach(function(p,i){
-      var visibleEle = document.getElementById("post-" + p);
-      var visibleElerec = visibleEle.getBoundingClientRect();
-      if((box.scrollTop + h/2) >= visibleEle.offsetTop && (box.scrollTop + h/2) <= (visibleEle.offsetTop + visibleElerec.height) && currentPostId !== i){
-        lastPostId = currentPostId;
-        currentPostId = i;
-        if(visibleEle.getAttribute('data-social') === 'twitter'){
-            self.lazyLoadElement(visibleEle);
-        }
-        var markerOn = d3.select("#" + p);
-        d3.select(markerOn.node().parentNode).raise(); //raise marker to front
-        var transform = markerOn.attr("transform");
-        var scaleV = 0.08;
-        markerOn
-          .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]))
-          .transition()
-          .ease(d3.easeExp)
-          .duration(800)
-          .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
-          .on("end", function(){
-            var markerBox = markerOn.node().getBoundingClientRect();
-            self.toggleToolTip(true,[markerBox.x, markerBox.y], markerOn.attr('data-loc'));
-          });
 
-        if(lastPostId !== -1){
-          var markerOff = d3.select("#" + self.index[lastPostId]);
-          var transformOff = markerOff.attr("transform");
-          self.toggleToolTip(false);
-          markerOff
-            .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
-            .transition()
-            .ease(d3.easeExp)
-            .duration(800)
-            .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
+    this.querySelectorAll("[data-social=chapter]").forEach(function(chapter){
+        if(self.isElementOnScreen(box, chapter, h/2) && currentChapterId !==  chapter.id){
+          lastChapterId = currentChapterId;
+          currentChapterId = chapter.id;
+          replaceClass(chapter,'hidden','active');
+          chapter.querySelectorAll('.post').forEach(function(marker){
+            var markerOn = d3.select('#' + marker.id.split('post-')[1]); //select marker
+            d3.select(markerOn.node().parentNode).raise(); //raise marker to front
+            replaceClass(markerOn.node().parentNode,'hidden-marker','active');
+          });
+          if(lastChapterId !== -1){
+            var lastChapter = document.getElementById(lastChapterId);
+            replaceClass(lastChapter,'active','hidden');
+            lastChapter.querySelectorAll('.post').forEach(function(marker){
+              var markerOff = d3.select('#' + marker.id.split('post-')[1]); //select marker
+              replaceClass(markerOff.node().parentNode,'active', 'hidden-marker');
+            });
+          }
         }
-      }
-    });
+        chapter.querySelectorAll('.post').forEach(function(visibleEle){
+          if(self.isElementOnScreen(box, visibleEle, h/2) && currentPostId !==  visibleEle.id){
+            lastPostId = currentPostId;
+            currentPostId = visibleEle.id;
+
+            if(visibleEle.getAttribute('data-social') === 'twitter'){
+                self.lazyLoadElement(visibleEle);
+            }
+            var markerOn = d3.select('#' + visibleEle.id.split('post-')[1]); //select marker
+            d3.select(markerOn.node().parentNode).raise(); //raise marker to front
+            var transform = markerOn.attr("transform"); //get transform attributes
+            //start transiton
+            markerOn
+              .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]))
+              .transition()
+              .ease(d3.easeExp)
+              .duration(800)
+              .attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
+              .on("end", function(){
+                var markerBox = markerOn.node().getBoundingClientRect();
+                self.toggleToolTip(true,[markerBox.x, markerBox.y], markerOn.attr('data-loc'));
+              });
+              replaceClass(visibleEle, 'hidden','active');
+              //if is an new post, transform last marker
+              if(lastPostId !== -1){
+                replaceClass(document.getElementById(lastPostId), 'active','hidden');
+                var markerOff = d3.select('#' + lastPostId.split('post-')[1]);
+                var transformOff = markerOff.attr("transform");
+                self.toggleToolTip(false);
+                markerOff
+                  .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]))
+                  .transition()
+                  .ease(d3.easeExp)
+                  .duration(800)
+                  .attr("transform", setTransform("translate", getTransform(transformOff, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
+              }
+          }
+        }); //loop chapter elemetns
+    }); //loop chapters
   });
 }
-
+Map.prototype.isElementOnScreen = function(box, visibleEle, position){
+  var visibleElerec = visibleEle.getBoundingClientRect();
+  return ((box.scrollTop + position) >= visibleEle.offsetTop && (box.scrollTop + position) <= (visibleEle.offsetTop + visibleElerec.height));
+}
 Map.prototype.lazyLoadElement = function(ele) {
   //create virtual script and force dom to load it
   if(ele.querySelector('.lazy-load') !== null){
@@ -336,6 +367,7 @@ d3.select('#splash-button').on('click',function(){
      .on("end", function(){
        this.style.display = 'none';
        map.start();
+       document.getElementById('footer-container').hidden = false;
      });
 });
 //util
@@ -346,4 +378,8 @@ function getTransform(str, mode){
 }
 function setTransform(mode, value){
      return mode + "(" +  value.join(',') + ")";
+}
+function replaceClass(ele, oldClass, newClass){
+  var s = ele.getAttribute('class');
+  ele.setAttribute('class', s.replace(oldClass, newClass));
 }

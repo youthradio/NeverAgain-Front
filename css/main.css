@@ -9,6 +9,32 @@
 .instagram-media-rendered{
   margin: auto!important;
 }
+.footer{
+  background-color:rgb(28, 35, 56);
+  font-family: "Oswald", Sans;
+  font-size:1rem;
+}
+.footer2{
+  font-family: "Oswald", Sans;
+  font-size:1rem;
+  margin-bottom:10px;
+}
+.subscribe-button{
+  height:30px;
+}
+#splash-button{
+  font-weight:normal;
+  border:solid white 3px;
+}
+#splash-button:hover{
+  font-weight:normal;
+  border:solid white 3px;
+  color:#2b3f66;
+}
+.email{
+  border-radius:3px;
+  width: 160px;
+}
 #map-page{
   z-index: 0;
 }
@@ -43,7 +69,6 @@
   margin-top:20px
 }
 .index-title{
-  font-size: 2.5rem;
   text-align: center;
   vertical-align: middle;
 }
@@ -65,27 +90,13 @@
   100% {opacity: 1;}
 }
 
-.btn{
-  font-weight:normal;
-  font-size:40px;
-  color:white;
-  margin-top:40px
-  border:solid white 3px;
-}
-.btn:hover{
-  font-weight:normal;
-  font-size:40px;
-  margin-top:40px
 
-  border:solid white 3px;
-}
 
 
 /*Main Page CSS */
 
 #title{
-  background-color:rgba(87, 72, 155, 0.73);
-
+  background-color:rgb(44, 55, 89);
 }
 .bg {
 
@@ -93,15 +104,6 @@
   background-size: cover;
   background-position:center;
 
-}
-.social-logos{
-  display:none;
-}
-#yrlogofull{
-  display:none;
-}
-#yrlogocircle{
-  display:block;
 }
 /*.map-1 {
     padding-top: 50px;
@@ -124,14 +126,14 @@ body {
    -webkit-overflow-scrolling: touch;
 }
 
-#social-content {
+#social-content-parent {
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
-#social-content:after {
+#social-content-parent:after {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -157,108 +159,82 @@ a {
 }
 
 .header {
-    background-color: black;
+    background-color:rgb(44, 55, 89);
     text-shadow: 3px 4px 8px #505050;
 }
 
-@media (max-width: 414px) {
-    .details
-    h2,
-    h3 {
-        font-size: 25px !important;
-    }
-    h1 {
-      font-size: 35px;
-    }
-
-    #splash-title{
-    margin-top:125px;
-    font-size: 30px;
-
-}
-
-#splash-text{
-  font-size:15px;
-}
-
-}
-
-@media (min-width: 580px) {
-   #yrlogofull{
-      display:block;
-    }
-    #yrlogocircle{
-      display:none;
-    }
-
-}
-
-@media (max-width: 620px) {
+@media (max-width: 576px) {
+  #splash-title{
+    /* margin-top:125px; */
+    font-size: 2rem;
+  }
+  #splash-text{
+    font-size: 1rem;
+  }
   .index-title{
-    font-size: 1.2rem;
+    font-size: 1.0rem;
+  }
+  #splash-button{
+    font-size: 1.1rem;
   }
 }
-@media (max-width: 320px) {
+@media (min-width: 576px) {
   .index-title{
-    font-size: 0.8rem;
+    font-size: 2rem;
   }
-}
-
-@media (max-width: 992px) and (min-width: 0px) {
-
-
+  #splash-title{
+    /* margin-top:125px; */
+    font-size: 3rem;
+  }
+  #splash-text{
+    font-size: 2rem;
+  }
+  #splash-button{
+    font-size: 1.5rem;
+  }
 }
 @media (min-width: 992px) {
 
-    .header {
-        background-color: transparent;
-    }
-    .social-logos{
-      display:inline-block;
-    }
-    #yrlogofull{
-      display:block;
-    }
-    #yrlogocircle{
-      display:none;
-    }
-    .map-1 {
-        padding-top: 100px;
-    }
 }
+@media (min-width: 1200px) {
 
+}
 /* Map Viz CSS */
 /* https://coolors.co/fdffff-b10f2e-570000-280000-de7c5a */
 .marker {
     opacity: 1;
-    fill: #b10f2e;
+    fill: #b10f2e; 
+    stroke-width: 5;
+    stroke: black;
+
     /* -webkit-filter: drop-shadow( 1px 1px 2px #000 );
     filter: drop-shadow( 1px 1px 2px #000 ); */
 }
 .marker:hover {
     /* fill: #c65067; */
-    opacity: 0.8;
+    opacity: 1;
+}
+
+.marker-chapter-3 {
+    fill: #bd0026;
 }
 .marker-chapter-1 {
-  fill: #D65F23;
+    fill: #58ACB5;
 }
 .marker-chapter-2 {
-    fill: #FF8552;
-}
-.marker-chapter-3 {
-    fill: #FFAC54;
+    fill: #fd8559;
 }
 .marker-chapter-4 {
-    fill: #FFA95C;
+    fill: #9FCD5E;
 }
 .marker-chapter-5 {
-    fill: #FFD866;
+    fill: #FBC35D;
 }
 .marker-chapter-6 {
-    fill: #A6D154;A6D154
+    fill: #FD8559;
 }
 .marker-chapter-7 {
-    fill: #fdbf6f;
+    fill: #A61543;
 }
 
 .chapter-header {
@@ -288,73 +264,54 @@ h1{
   font-family: 'Oswald';
   font-size: 1.8rem;
 }
-
-
-#chapter-1 h4{
-  color: #D65F23;
+h4{
+  color:white;
 }
 
+#chapter-3 h3{
+    color: #bd0026;
+}
 #chapter-1 h3{
-  color: #D65F23;
-}
-
-#chapter-2 h4{
-  color: #FF8552;
+    color: #58ACB5;
 }
 #chapter-2 h3{
-  color: #FF8552;
-}
-#chapter-3 h4{
-  color: #FFA95C;
-}
-#chapter-3 h3{
-  color: #FFAC54;
-}
-#chapter-4 h4{
-  color: #FFA95C;
+    color: #fd8559;
 }
 #chapter-4 h3{
-  color: #FFA95C;
-}
-#chapter-5 h4{
-  color: #FFD866;
+    color: #9FCD5E;
 }
 #chapter-5 h3{
-  color: #FFD866;
-}
-#chapter-6 h4{
-  color: #A6D154;
+    color: #FBC35D;
 }
 #chapter-6 h3{
-  color: #A6D154;
-}
-#chapter-7 h4{
-  color: #fdbf6f;
+    color: #FD8559;
 }
 #chapter-7 h3{
-  color: #fdbf6f;
+    color: #A61543;
 }
 
 
-#chapter-2 {
-  /*background-color: #1f78b4;*/
+#chapter-3 h4{
+    color: #bd0026;
 }
-#chapter-3 {
-  /*background-color: #b2df8a;*/
+#chapter-1 h4{
+    color: #58ACB5;
 }
-#chapter-4 {
-  /*background-color: #33a02c;*/
+#chapter-2 h4{
+    color: #fd8559;
 }
-#chapter-5 {
-  /*background-color: #fb9a99;*/
+#chapter-4 h4{
+    color: #9FCD5E;
 }
-#chapter-6 {
-  /*background-color: #e31a1c;*/
+#chapter-5 h4{
+    color: #FBC35D;
 }
-#chapter-7 {
-  /*background-color: #fdbf6f;*/
+#chapter-6 h4{
+    color: #FD8559;
 }
-
+#chapter-7 h4{
+    color: #A61543;
+}
 
 .states {
   stroke: #0a090c;
@@ -395,4 +352,26 @@ h1{
     border: 0px;
     border-radius: 5px;
     pointer-events: none;
+}
+
+.hidden {
+    opacity: 0.2;
+    transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+}
+.hidden-marker {
+    opacity: 0.3;
+    transition: opacity 1000ms;
+    -moz-transition: opacity 1000ms;
+    -webkit-transition: opacity 1000ms;
+    -o-transition: opacity 1000ms;
+}
+.active {
+    opacity: 1;
+    transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
 }
