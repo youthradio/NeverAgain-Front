@@ -285,50 +285,54 @@ h4{
   color:white;
 }
 
-#chapter-3 h3{
+#chapter-3 * {
     color: #bd0026;
 }
-#chapter-1 h3{
+#chapter-1 * {
     color: #58ACB5;
 }
-#chapter-2 h3{
+#chapter-2 * {
     color: #fd8559;
 }
-#chapter-4 h3{
+#chapter-4 * {
     color: #9FCD5E;
 }
-#chapter-5 h3{
+#chapter-5 * {
     color: #FBC35D;
 }
-#chapter-6 h3{
+#chapter-6 * {
     color: #FD8559;
 }
-#chapter-7 h3{
+#chapter-7 * {
     color: #A61543;
 }
 
+#list-nav span:hover {
+  cursor: pointer;
+}
 
-#chapter-3 h4{
+#li-chapter-3 {
     color: #bd0026;
 }
-#chapter-1 h4{
+#li-chapter-1  {
     color: #58ACB5;
 }
-#chapter-2 h4{
+#li-chapter-2  {
     color: #fd8559;
 }
-#chapter-4 h4{
+#li-chapter-4 {
     color: #9FCD5E;
 }
-#chapter-5 h4{
+#li-chapter-5 {
     color: #FBC35D;
 }
-#chapter-6 h4{
+#li-chapter-6 {
     color: #FD8559;
 }
-#chapter-7 h4{
+#li-chapter-7 {
     color: #A61543;
 }
+
 
 .states {
   stroke: #0a090c;

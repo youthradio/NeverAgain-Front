@@ -190,16 +190,29 @@ Map.prototype.loadTimeline = function(){
   var self = this;
 
   self.chapters = d3.select('#social-content').selectAll('div').select('div')
-                   .data(self.data.categories);
+                   .data(self.data.categories.reverse());
 
   self.chapters.attr("class", "update");
-
   self.chapters.enter()
           .append('div')
           .attr('id', function(e){ return e.key })
           .attr('data-social', 'chapter')
           .each(function(e, i){
-                if(i > 0 && i < self.chapters.enter().size() - 1) d3.select(this).attr('class', 'hidden')
+                //each chapter
+                if(i > 0 && i < self.chapters.enter().size() - 1){
+                  d3.select(this).attr('class', 'hidden');
+                  d3.select("#nav-list-container")
+                    .append("li")
+                    .attr("class",function (){
+                      return i > 0 ? "nav-item hidden" : "nav-item active";
+                    })
+                    .attr("id", "#li-" + e.key)
+                    .on("click", mouseClick)
+                    .append("span")
+                    .attr("class", "nav-link")
+                    .attr("data-link", e.key)
+                    .html(e.title);
+                };
           })
           .append('div')
           .attr('class', 'chapter-header')
@@ -207,6 +220,13 @@ Map.prototype.loadTimeline = function(){
               return( chapter.body.html );
           });
 
+  function mouseClick() {
+    var ele = document.getElementById(this.firstChild.getAttribute('data-link'));
+    var timeline = document.getElementById("social-content-parent");
+    var h = timeline.getBoundingClientRect().height;
+    timeline.scrollTo(0, ele.offsetTop);
+    replaceClass(ele, 'hidden','active');
+  }
   self.chapters.exit().remove();
 
   self.chapters.enter()
@@ -274,6 +294,7 @@ Map.prototype.enableScrollEvents = function(){
           lastChapterId = currentChapterId;
           currentChapterId = chapter.id;
           replaceClass(chapter,'hidden','active');
+          replaceClass(document.getElementById("#li-" + chapter.id),'hidden','active')
           chapter.querySelectorAll('.post').forEach(function(marker){
             var markerOn = d3.select('#' + marker.id.split('post-')[1]); //select marker
             d3.select(markerOn.node().parentNode).raise(); //raise marker to front
@@ -282,6 +303,7 @@ Map.prototype.enableScrollEvents = function(){
           if(lastChapterId !== -1){
             var lastChapter = document.getElementById(lastChapterId);
             replaceClass(lastChapter,'active','hidden');
+            replaceClass(document.getElementById("#li-" + lastChapterId),'active','hidden');
             lastChapter.querySelectorAll('.post').forEach(function(marker){
               var markerOff = d3.select('#' + marker.id.split('post-')[1]); //select marker
               replaceClass(markerOff.node().parentNode,'active', 'hidden-marker');
