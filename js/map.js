@@ -226,6 +226,7 @@ Map.prototype.loadTimeline = function(){
     var h = timeline.getBoundingClientRect().height;
     timeline.scrollTo(0, ele.offsetTop);
     replaceClass(ele, 'hidden','active');
+    document.getElementById('menu-btn').click();
   }
   self.chapters.exit().remove();
 
