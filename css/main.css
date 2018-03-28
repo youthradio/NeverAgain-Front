@@ -261,7 +261,10 @@ a {
   border: 0px lightgrey solid;
   border-radius: 5px;
 }
-
+.nav-margin{
+  margin-right: -15px;
+  margin-left: -15px;
+}
 #list-nav{
   font-family: "Open Sans", sans;
   text-transform: uppercase;
