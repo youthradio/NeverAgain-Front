@@ -30,11 +30,16 @@ const uglifyJS = new UglifyJSPlugin({
 const defineMode = new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production')
 });
-const optimizeCSS = new OptimizeCSSAssetsPlugin({});
-
+const optimizeCSS = new OptimizeCSSAssetsPlugin({
+  cssProcessorOptions: {
+    map: {
+      inline: false
+    }
+  }
+});
 
 module.exports = merge(common, {
- // devtool: 'source-map',
+ devtool: 'source-map',
  optimization: {
   minimizer: [
     uglifyJS,
