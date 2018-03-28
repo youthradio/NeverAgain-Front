@@ -3,6 +3,7 @@ import * as topojson from 'topojson';
 
 const MARKER_S_MIN = 0.07;
 const MARKER_S_MAX = 0.15;
+const MARKER_PATH = "M -19.732,-10.330125 C -165.03,-220.96916 -192,-242.58716 -192,-320.00016 c 0,-106.039 85.961,-192 192,-192 106.039,0 192,85.961 192,192 0,77.413 -26.97,99.031 -172.268,309.670035 -9.535,13.774 -29.93,13.773 -39.464,0 z";
 const SCRIPT = {
   instagram: {
     src: "https://www.instagram.com/embed.js",
@@ -25,7 +26,6 @@ var Map = function(cfg){
   this.isDataLoaded = false;
   this.setup();
   this.loadData();
-
 }
 
 
@@ -67,13 +67,11 @@ Map.prototype.loadData = function(){
 
   d3.queue()
     .defer(d3.json, "assets/data/us-light.json") //load us map data
-    .defer(d3.xml, "assets/map-marker.svg")//load marker from external svg from a file
     .defer(d3.json, "https://neveragain.youthradio.org/api/posts") //fetch data form api
-    .await(function(error, us, xml, data){
+    .await(function(error, us, data){
       if (error) return console.log(error);
         self.isDataLoaded = true;
-        self.drawMap(us)
-        self.markerSVG = document.importNode(xml.documentElement, true);
+        self.drawMap(us);
         self.data = data;
         self.loadTimeline();
     });
@@ -118,16 +116,13 @@ Map.prototype.drawMap = function(us) {
 Map.prototype.drawMarkers = function(){
   var self = this;
   var n = 0;
-  this.markers = this.svg.selectAll("marker")
+  this.markers = this.svg.append("g").selectAll(".marker")
     .data(self.data.posts.filter(function(e){ return (e.geo ? ((e.geo.geo[0] || e.geo.geo[1]) != 0) : false); }))
     .enter()
-    .append('svg')
-    .attr("class", function(e){ return "marker marker-" + e.category })
-    .append("g")
-    .each(function() {
-      this.appendChild(self.markerSVG.cloneNode(true).children[0]);
-    })
+    .append("path")
+    .attr("d", MARKER_PATH)
     .attr("id", function(e){ return "id-" + e.slug})
+    .attr("class", function(e){ return "marker marker-" + e.category })
     .attr("data-loc",function(e){ return e.geo.suburb + " " + e.geo.state })
     .on("mouseover", mouseOver)
     .on("mouseout", mouseOut)
@@ -145,7 +140,7 @@ Map.prototype.drawMarkers = function(){
     })
     .each(function() { ++n; })
     .on("end", function() {
-      d3.select(this).node().parentNode.classList.add('hidden-marker');
+      d3.select(this).classed('hidden-marker', true);
       if (!--n) self.enableScrollEvents(); //enable scroll events afer markers fixed
     });
 
@@ -156,7 +151,7 @@ Map.prototype.drawMarkers = function(){
       self.toggleToolTip(true, [d3.event.pageX, d3.event.pageY], e.geo.suburb + " " + e.geo.state)
       var transform = d3.select(this).attr("transform");
       d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX]));
-      d3.select(this.parentNode).raise();
+      d3.select(this).raise();
     }
     function mouseClick(e, i) {
       d3.event.stopPropagation();
@@ -172,7 +167,7 @@ Map.prototype.drawMarkers = function(){
       self.toggleToolTip(false);
       var transform = d3.select(this).attr("transform");
       d3.select(this).attr("transform", setTransform("translate", getTransform(transform, "translate")) + setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN]));
-      d3.select(this.parentNode).raise();
+      d3.select(this).raise();
     }
 }
 Map.prototype.toggleToolTip = function(mode, pos, text){
@@ -194,16 +189,38 @@ Map.prototype.loadTimeline = function(){
   var self = this;
 
   self.chapters = d3.select('#social-content').selectAll('div').select('div')
-                   .data(self.data.categories);
+                   .data(self.data.categories.reverse());
 
   self.chapters.attr("class", "update");
-
   self.chapters.enter()
           .append('div')
           .attr('id', function(e){ return e.key })
           .attr('data-social', 'chapter')
           .each(function(e, i){
-                if(i > 0 && i < self.chapters.enter().size() - 1) d3.select(this).attr('class', 'hidden')
+                //each chapter
+              d3.select(this).attr('class', function (){
+                if(i > 0 && i < self.chapters.enter().size() - 1){
+                  return "hidden";
+                } else {
+                  return  "active";
+                }
+              })
+              d3.select("#nav-list-container")
+                .append("li")
+                .attr("class",function (){
+                  if(i > 0 && i < self.chapters.enter().size() - 1){
+                    return i > 1 ? "nav-item hidden" : "nav-item active";
+                  }else{
+                    return "nav-item hidden d-none";
+                  }
+                })
+                .attr("id", "#li-" + e.key)
+                .on("click", mouseClick)
+                .append("span")
+                .attr("class", "nav-link")
+                .attr("data-link", e.key)
+                .html(e.title);
+
           })
           .append('div')
           .attr('class', 'chapter-header')
@@ -211,6 +228,17 @@ Map.prototype.loadTimeline = function(){
               return( chapter.body.html );
           });
 
+  function mouseClick() {
+    var ele = document.getElementById(this.firstChild.getAttribute('data-link'));
+    var timeline = document.getElementById("social-content-parent");
+    var h = timeline.getBoundingClientRect().height;
+    timeline.scrollTo(0, ele.offsetTop);
+    replaceClass(ele, 'hidden','active');
+    //only toggle menu on small screens
+    if(window.innerWidth < 768){
+      document.getElementById('menu-btn').click()
+    };
+  }
   self.chapters.exit().remove();
 
   self.chapters.enter()
@@ -278,17 +306,21 @@ Map.prototype.enableScrollEvents = function(){
           lastChapterId = currentChapterId;
           currentChapterId = chapter.id;
           replaceClass(chapter,'hidden','active');
+          replaceClass(document.getElementById("#li-" + chapter.id),'hidden','active')
           chapter.querySelectorAll('.post').forEach(function(marker){
             var markerOn = d3.select('#' + marker.id.split('post-')[1]); //select marker
-            d3.select(markerOn.node().parentNode).raise(); //raise marker to front
-            replaceClass(markerOn.node().parentNode,'hidden-marker','active');
+            d3.select(markerOn).raise(); //raise marker to front
+            markerOn.classed('hidden-marker',false);
+            markerOn.classed('active',true);
           });
           if(lastChapterId !== -1){
             var lastChapter = document.getElementById(lastChapterId);
             replaceClass(lastChapter,'active','hidden');
+            replaceClass(document.getElementById("#li-" + lastChapterId),'active','hidden');
             lastChapter.querySelectorAll('.post').forEach(function(marker){
               var markerOff = d3.select('#' + marker.id.split('post-')[1]); //select marker
-              replaceClass(markerOff.node().parentNode,'active', 'hidden-marker');
+              markerOff.classed('hidden-marker',true);
+              markerOff.classed('active',false);
             });
           }
         }
@@ -301,7 +333,7 @@ Map.prototype.enableScrollEvents = function(){
                 self.lazyLoadElement(visibleEle);
             }
             var markerOn = d3.select('#' + visibleEle.id.split('post-')[1]); //select marker
-            d3.select(markerOn.node().parentNode).raise(); //raise marker to front
+            markerOn.raise(); //raise marker to front
             var transform = markerOn.attr("transform"); //get transform attributes
             //start transiton
             markerOn

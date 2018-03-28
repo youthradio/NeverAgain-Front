@@ -44,7 +44,7 @@
   background-image:linear-gradient(
   	               rgba(44, 34, 93, 0.3),
   	               rgba(44, 34, 93, 0.8)),
-                   url("../img/splash-bg.jpg")
+                   url("assets/img/splash-bg.jpg")
 }
 
 #splash-color{
@@ -58,7 +58,8 @@
   font-weight:bold;
   font-size:75px;
   color:white;
-
+  -webkit-filter: drop-shadow( 2px 2px 2px #000);
+  filter: drop-shadow( 2x 2px 2px #000 );
 }
 
 
@@ -67,7 +68,8 @@
   font-family: 'Open Sans', sans-serif !important;
   font-weight:normal;
   font-size:1.95rem;
-
+  -webkit-filter: drop-shadow( 2px 2px 2px #000);
+  filter: drop-shadow( 2x 2px 2px #000 );
   color:white;
   margin-top:20px
 }
@@ -103,7 +105,7 @@
 }
 .bg {
 
-  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('../img/fullbg.jpg');
+  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('assets/img/fullbg.jpg');
   background-size: cover;
   background-position:center;
 
@@ -340,7 +342,7 @@ h4{
 .states {
   stroke: #0a090c;
   stroke-width: 1px;
-  fill: #f0edee
+  fill: #f0edee;
   stroke-linejoin: round;
 }
 .states :hover {
