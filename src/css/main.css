@@ -271,6 +271,7 @@ a {
   font-family: "Open Sans", sans;
   text-transform: uppercase;
   list-style-type: none;
+  /* white-space: nowrap; */
 }
 
 p {
@@ -382,6 +383,20 @@ h4{
 
 .hidden {
     opacity: 0.2;
+    transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+}
+.hidden-menu !important{
+    opacity: 0.6;
+    transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+}
+.active-menu !important{
+    opacity: 1;
     transition: opacity 500ms;
     -moz-transition: opacity 500ms;
     -webkit-transition: opacity 500ms;

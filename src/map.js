@@ -209,9 +209,9 @@ Map.prototype.loadTimeline = function(){
                 .append("li")
                 .attr("class",function (){
                   if(i > 0 && i < self.chapters.enter().size() - 1){
-                    return i > 1 ? "nav-item hidden" : "nav-item active";
+                    return i > 1 ? "nav-item hidden-menu" : "nav-item active-menu";
                   }else{
-                    return "nav-item hidden d-none";
+                    return "nav-item hidden-menu d-none";
                   }
                 })
                 .attr("id", "#li-" + e.key)
@@ -219,7 +219,7 @@ Map.prototype.loadTimeline = function(){
                 .append("span")
                 .attr("class", "nav-link")
                 .attr("data-link", e.key)
-                .html(e.title);
+                .html(e.menu);
 
           })
           .append('div')
@@ -233,7 +233,7 @@ Map.prototype.loadTimeline = function(){
     var timeline = document.getElementById("social-content-parent");
     var h = timeline.getBoundingClientRect().height;
     timeline.scrollTo(0, ele.offsetTop);
-    replaceClass(ele, 'hidden','active');
+    replaceClass(ele, 'hidden-menu','active-menu');
     //only toggle menu on small screens
     if(window.innerWidth < 768){
       document.getElementById('menu-btn').click()

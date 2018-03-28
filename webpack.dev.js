@@ -11,7 +11,8 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = merge(common, {
  devtool: 'inline-source-map',
  devServer: {
-   contentBase: './dist'
+   contentBase: './dist',
+   watchContentBase: true
  },
  module: {
    rules: [

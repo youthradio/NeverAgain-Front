@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --hot --inline --config webpack.dev.js",
+    "start": "webpack-dev-server --mode development --open --hot --inline --config webpack.dev.js",
     "build": "webpack --mode production --config webpack.prod.js",
     "prog": "webpack -p --progress"
   },
@@ -29,7 +29,6 @@
     "d3-request": "^1.0.6",
     "d3-selection": "^1.3.0",
     "d3-transition": "^1.1.1",
-    "jquery": "^3.3.1",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "topojson": "^3.0.2"
   },
