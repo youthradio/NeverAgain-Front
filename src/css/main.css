@@ -1,161 +1,151 @@
 /* div{
   border: solid 1px ;
 } */
-
 /*Splash Page CSS */
 
 .twitter-tweet-rendered {
-  margin: auto !important;
+  margin: auto!important;
 }
-
-.instagram-media-rendered {
-  margin: auto !important;
+.instagram-media-rendered{
+  margin: auto!important;
 }
-
-.footer {
-  background-color: rgb(28, 35, 56);
+.footer{
+  background-color:rgb(28, 35, 56);
   font-family: "Oswald", Sans;
-  font-size: 1rem;
+  font-size:1rem;
 }
-
-.footer2 {
+.footer2{
   font-family: "Oswald", Sans;
-  font-size: 1rem;
-  margin-bottom: 10px;
+  font-size:1rem;
+  margin-bottom:10px;
 }
-
-.subscribe-button {
-  height: 30px;
+.subscribe-button{
+  height:30px;
 }
-
-#splash-button {
-  font-weight: normal;
-  border: solid white 3px;
+#splash-button{
+  font-weight:normal;
+  border:solid white 3px;
 }
-
-#splash-button:hover {
-  font-weight: normal;
-  border: solid white 3px;
-  color: #2b3f66;
+#splash-button:hover{
+  font-weight:normal;
+  border:solid white 3px;
+  color:#2b3f66;
 }
-
-.email {
-  border-radius: 3px;
+.email{
+  border-radius:3px;
   width: 160px;
 }
-
-#map-page {
+#map-page{
   z-index: 0;
 }
-
-#splash-bg {
+#splash-bg{
   z-index: 100;
   height: 100vh;
-  background-image: linear-gradient( rgba(44, 34, 93, 0.3), rgba(44, 34, 93, 0.8)), url("assets/img/splash-bg.jpg")
+  background-image:linear-gradient(
+  	               rgba(44, 34, 93, 0.3),
+  	               rgba(44, 34, 93, 0.8)),
+                   url("../img/splash-bg.jpg")
 }
 
-#splash-color {
-  background-color: rgba(44, 34, 93, 0.8);
+#splash-color{
+  background-color:rgba(44, 34, 93, 0.8);
+}
+#splash-title{
+  margin-top:125px
+
+}
+#splash-title{
+  font-weight:bold;
+  font-size:75px;
+  color:white;
+
 }
 
-#splash-title {
-  margin-top: 125px
-}
 
-#splash-title {
-  font-weight: bold;
-  font-size: 75px;
-  color: white;
-}
 
-#splash-text {
+#splash-text{
   font-family: 'Open Sans', sans-serif !important;
-  font-weight: normal;
-  font-size: 1.95rem;
-  color: white;
-  margin-top: 20px
-}
+  font-weight:normal;
+  font-size:1.95rem;
 
-.index-title {
+  color:white;
+  margin-top:20px
+}
+.index-title{
   text-align: center;
   vertical-align: middle;
 }
-
-.splash-hero {
+.splash-hero{
   -webkit-animation: fadein 2s forwards;
   animation: fadein 2s forwards;
   z-index: 0;
+
+
 }
 
 @-webkit-keyframes fadein {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
 
 @keyframes fadein {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
+
+
+
 
 /*Main Page CSS */
 
-#title {
-  background-color: rgb(44, 55, 89);
+#title{
+  background-color:rgb(44, 55, 89);
 }
-
 .bg {
-  background: linear-gradient(0deg, rgba(87, 72, 155, 0.5), rgba(87, 72, 155, 0.3)), url('assets/img/fullbg.jpg');
-  background-size: cover;
-  background-position: center;
-}
 
+  background: linear-gradient(0deg,rgba(87, 72, 155, 0.5),rgba(87, 72, 155, 0.3)), url('../img/fullbg.jpg');
+  background-size: cover;
+  background-position:center;
+
+}
 /*.map-1 {
     padding-top: 50px;
 }*/
-
-h1 {
-  font-size: 50px;
+h1{
+  font-size:50px;
 }
-
 /* .map-1 {
     filter: drop-shadow(5px 5px 15px #222);
     max-width: 80%;
     max-height: 80%;
 } */
 
-html, body {
-  width: auto;
-  height: 100vh;
-  overflow: hidden;
-  font-family: 'Oswald';
-  -webkit-overflow-scrolling: touch;
+html,
+body {
+   width: auto;
+   height: 100vh;
+   overflow: hidden;
+   font-family: 'Oswald';
+   -webkit-overflow-scrolling: touch;
 }
 
 #social-content-parent {
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 #social-content-parent:after {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(transparent 150px, white);
-  left: 0;
-  top: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background:linear-gradient(transparent 150px, white);
+	left:0;
+  top:0;
 }
 
-a:hover {
+a:hover{
   color: #3b94d9;
 }
 
@@ -163,99 +153,100 @@ a {
   color: #2b7bb9;
 }
 
-.post a {
+.post a{
   color: #ffe0b5;
 }
 
 .endingScroll {
-  margin-top: 1600px;
+    margin-top: 1600px;
 }
 
 .header {
-  background-color: rgb(44, 55, 89);
-  text-shadow: 3px 4px 8px #505050;
+    background-color:rgb(44, 55, 89);
+    text-shadow: 3px 4px 8px #505050;
 }
 
 @media (max-width: 576px) {
-  #splash-title {
+  #splash-title{
     /* margin-top:125px; */
     font-size: 2rem;
   }
-  #splash-text {
+  #splash-text{
     font-size: 1rem;
   }
-  .index-title {
+  .index-title{
     font-size: 1.0rem;
   }
-  #splash-button {
+  #splash-button{
     font-size: 1.1rem;
   }
+  #list-nav{
+  font-size: 0.8rem;
+  }
 }
-
 @media (min-width: 576px) {
-  .index-title {
+  .index-title{
     font-size: 2rem;
   }
-  #splash-title {
+  #splash-title{
     /* margin-top:125px; */
     font-size: 3rem;
   }
-  #splash-text {
+  #splash-text{
     font-size: 2rem;
   }
-  #splash-button {
+  #splash-button{
     font-size: 1.5rem;
   }
+  #list-nav{
+  font-size: 0.8rem;
+  }
+
 }
+@media (min-width: 992px) {
+#list-nav{
+  font-size: 1rem;
+  }
+}
+@media (min-width: 1200px) {
 
-@media (min-width: 992px) {}
-
-@media (min-width: 1200px) {}
-
+}
 /* Map Viz CSS */
-
 /* https://coolors.co/fdffff-b10f2e-570000-280000-de7c5a */
-
 .marker {
-  opacity: 1;
-  fill: #b10f2e;
-  stroke-width: 5;
-  stroke: black;
-  /* -webkit-filter: drop-shadow( 1px 1px 2px #000 );
+    opacity: 1;
+    fill: #b10f2e; 
+    stroke-width: 5;
+    stroke: black;
+
+    /* -webkit-filter: drop-shadow( 1px 1px 2px #000 );
     filter: drop-shadow( 1px 1px 2px #000 ); */
 }
-
 .marker:hover {
-  /* fill: #c65067; */
-  opacity: 1;
+    /* fill: #c65067; */
+    opacity: 1;
 }
 
 .marker-chapter-3 {
-  fill: #bd0026;
+    fill: #bd0026;
 }
-
 .marker-chapter-1 {
-  fill: #58ACB5;
+    fill: #58ACB5;
 }
-
 .marker-chapter-2 {
-  fill: #fd8559;
+    fill: #fd8559;
 }
-
 .marker-chapter-4 {
-  fill: #9FCD5E;
+    fill: #9FCD5E;
 }
-
 .marker-chapter-5 {
-  fill: #FBC35D;
+    fill: #FBC35D;
 }
-
 .marker-chapter-6 {
-  fill: #FD8559;
+    fill: #FD8559;
 }
-
 .marker-chapter-7 {
-  fill: #A61543;
+    fill: #A61543;
 }
 
 .chapter-header {
@@ -270,94 +261,92 @@ a {
   border: 0px lightgrey solid;
   border-radius: 5px;
 }
+.nav-margin{
+  margin-right: -15px;
+  margin-left: -15px;
+}
+#list-nav{
+  font-family: "Open Sans", sans;
+  text-transform: uppercase;
+  list-style-type: none;
+}
 
 p {
   font-family: 'Open Sans', sans-serif !important;
 }
-
-h3 {
+h3{
   font-weight: bold;
   font-family: 'Oswald';
   font-size: 2.2rem;
 }
 
-h1 {
+h1{
   font-family: 'Oswald';
   font-size: 1.8rem;
 }
-
-h4 {
-  color: white;
+h4{
+  color:white;
 }
 
-#chapter-3 h3 {
-  color: #bd0026;
+#chapter-3 * {
+    color: #bd0026;
+}
+#chapter-1 * {
+    color: #58ACB5;
+}
+#chapter-2 * {
+    color: #fd8559;
+}
+#chapter-4 * {
+    color: #9FCD5E;
+}
+#chapter-5 * {
+    color: #FBC35D;
+}
+#chapter-6 * {
+    color: #FD8559;
+}
+#chapter-7 * {
+    color: #A61543;
 }
 
-#chapter-1 h3 {
-  color: #58ACB5;
+#list-nav span:hover {
+  cursor: pointer;
 }
 
-#chapter-2 h3 {
-  color: #fd8559;
+#li-chapter-3 {
+    color: #bd0026;
+}
+#li-chapter-1  {
+    color: #58ACB5;
+}
+#li-chapter-2  {
+    color: #fd8559;
+}
+#li-chapter-4 {
+    color: #9FCD5E;
+}
+#li-chapter-5 {
+    color: #FBC35D;
+}
+#li-chapter-6 {
+    color: #FD8559;
+}
+#li-chapter-7 {
+    color: #A61543;
 }
 
-#chapter-4 h3 {
-  color: #9FCD5E;
-}
-
-#chapter-5 h3 {
-  color: #FBC35D;
-}
-
-#chapter-6 h3 {
-  color: #FD8559;
-}
-
-#chapter-7 h3 {
-  color: #A61543;
-}
-
-#chapter-3 h4 {
-  color: #bd0026;
-}
-
-#chapter-1 h4 {
-  color: #58ACB5;
-}
-
-#chapter-2 h4 {
-  color: #fd8559;
-}
-
-#chapter-4 h4 {
-  color: #9FCD5E;
-}
-
-#chapter-5 h4 {
-  color: #FBC35D;
-}
-
-#chapter-6 h4 {
-  color: #FD8559;
-}
-
-#chapter-7 h4 {
-  color: #A61543;
-}
 
 .states {
   stroke: #0a090c;
   stroke-width: 1px;
-  fill: #f0edee;
+  fill: #f0edee
   stroke-linejoin: round;
 }
-
 .states :hover {
   fill: red;
   opacity: 1.0;
 }
-
 .state-borders {
   fill: none;
   stroke: #000;
@@ -366,55 +355,50 @@ h4 {
   stroke-linecap: round;
   pointer-events: none;
 }
-
 /* Make the chart container fill the page using CSS. */
-
 #map {
   fill: #fdffff;
   left: 0px;
   right: 0px;
   top: 0px;
   bottom: 0px;
-  -webkit-filter: drop-shadow( 3px 3px 2px #000);
-  filter: drop-shadow( 3px 3px 2px #000);
+  -webkit-filter: drop-shadow( 3px 3px 2px #000 );
+  filter: drop-shadow( 3px 3px 2px #000 );
 }
 
 .tooltip {
-  position: absolute;
-  text-align: center;
-  padding: 10px;
-  font: 0.8em sans-serif;
-  color: #fdffff;
-  background: #280000;
-  border: 0px;
-  border-radius: 5px;
-  pointer-events: none;
+    position: absolute;
+    text-align: center;
+    padding: 10px;
+    font: 0.8em sans-serif;
+    color: #fdffff;
+    background: #280000;
+    border: 0px;
+    border-radius: 5px;
+    pointer-events: none;
 }
 
 .hidden {
-  opacity: 0.2;
-  transition: opacity 500ms;
-  -moz-transition: opacity 500ms;
-  -webkit-transition: opacity 500ms;
-  -o-transition: opacity 500ms;
+    opacity: 0.2;
+    transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
 }
-
 .hidden-marker {
-  opacity: 0.3;
-  transition: opacity 1000ms;
-  -moz-transition: opacity 1000ms;
-  -webkit-transition: opacity 1000ms;
-  -o-transition: opacity 1000ms;
+    opacity: 0.3;
+    transition: opacity 1000ms;
+    -moz-transition: opacity 1000ms;
+    -webkit-transition: opacity 1000ms;
+    -o-transition: opacity 1000ms;
 }
-
 .active {
-  opacity: 1;
-  transition: opacity 500ms;
-  -moz-transition: opacity 500ms;
-  -webkit-transition: opacity 500ms;
-  -o-transition: opacity 500ms;
+    opacity: 1;
+    transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -webkit-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
 }
-
 @media (min-width: 992px) and (min-height: 850px){
   .top-m-p {
     padding-top: 3rem !important;
