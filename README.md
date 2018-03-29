@@ -11,21 +11,21 @@ You need the latest [NodeJS](https://nodejs.org/en/download/package-manager/#mac
  git clone https://github.com/radames/NeverAgain-Front.git
  ```
  
-1. Install package dependency
+2. Install package dependency
 
  ```zsh
  cd NeverAgain-Front
  npm install
  ```
- 1. To run in dev mode 
+3. To run in dev mode 
  
  ```zsh
  npm run start
  ```
-1. To build startic files
+4. To build startic files
  
  ```zsh
  npm run build
  ```
 
-1. All the static files will be on `dist/`
+5. All the static files will be on `dist/`
