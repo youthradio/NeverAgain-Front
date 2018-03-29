@@ -408,7 +408,6 @@ d3.select('#splash-button').on('click',function(){
 });
 //enable navbar menu
 d3.select("#menu-btn").on("click", function(){
-    console.log("dsds");
     d3.select(".navbar-collapse").classed("collapse",!d3.select(".navbar-collapse").classed("collapse"));
 });
 //util
