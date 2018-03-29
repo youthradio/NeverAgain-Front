@@ -1,5 +1,5 @@
 # NeverAgain
-[![Build Status](https://travis-ci.org/radames/NeverAgain-Front.svg?branch=webpack)](https://travis-ci.org/radames/NeverAgain-Front)
+[![Build Status](https://travis-ci.org/youthradio/NeverAgain-Front.svg?branch=webpack)](https://travis-ci.org/youthradio/NeverAgain-Front)
 
 ## Building the project
 
@@ -8,7 +8,7 @@ You need the latest [NodeJS](https://nodejs.org/en/download/package-manager/#mac
 1. Clone the Repository:
 
  ```zsh
- git clone https://github.com/radames/NeverAgain-Front.git
+ git clone https://github.com/youthradio/NeverAgain-Front.git
  ```
  
 2. Install package dependency
