@@ -182,7 +182,7 @@ a {
   #splash-button{
     font-size: 1.1rem;
   }
-  #list-nav{
+  .list-nav{
   font-size: 0.8rem;
   }
 }
@@ -200,13 +200,13 @@ a {
   #splash-button{
     font-size: 1.5rem;
   }
-  #list-nav{
+  .list-nav{
   font-size: 0.8rem;
   }
 
 }
 @media (min-width: 992px) {
-#list-nav{
+.list-nav{
   font-size: 1rem;
   }
 }
@@ -267,10 +267,11 @@ a {
   margin-right: -15px;
   margin-left: -15px;
 }
-#list-nav{
+.list-nav{
   font-family: "Open Sans", sans;
   text-transform: uppercase;
   list-style-type: none;
+  color: white;
   /* white-space: nowrap; */
 }
 
@@ -313,7 +314,7 @@ h4{
     color: #A61543;
 }
 
-#list-nav span:hover {
+.list-nav span:hover {
   cursor: pointer;
 }
 
@@ -389,7 +390,7 @@ h4{
     -o-transition: opacity 500ms;
 }
 .hidden-menu !important{
-    opacity: 0.6;
+    opacity: 0.5;
     transition: opacity 500ms;
     -moz-transition: opacity 500ms;
     -webkit-transition: opacity 500ms;

@@ -236,7 +236,7 @@ Map.prototype.loadTimeline = function(){
     replaceClass(ele, 'hidden-menu','active-menu');
     //only toggle menu on small screens
     if(window.innerWidth < 768){
-      document.getElementById('menu-btn').click()
+      d3.select("#menu-btn").click();
     };
   }
   self.chapters.exit().remove();
@@ -405,6 +405,11 @@ d3.select('#splash-button').on('click',function(){
        map.start();
        document.getElementById('footer-container').hidden = false;
      });
+});
+//enable navbar menu
+d3.select("#menu-btn").on("click", function(){
+    console.log("dsds");
+    d3.select(".navbar-collapse").classed("collapse",!d3.select(".navbar-collapse").classed("collapse"));
 });
 //util
 // parse values to array for transform modes, scale, transform,etc
