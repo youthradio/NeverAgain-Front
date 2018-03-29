@@ -214,10 +214,10 @@ Map.prototype.loadTimeline = function(){
                     return "nav-item hidden-menu d-none";
                   }
                 })
-                .attr("id", "#li-" + e.key)
                 .on("click", mouseClick)
                 .append("span")
-                .attr("class", "nav-link")
+                .attr("id", "li-" + e.key)
+                .attr("class", "nav-link li-" + e.key)
                 .attr("data-link", e.key)
                 .html(e.menu);
 
@@ -229,11 +229,11 @@ Map.prototype.loadTimeline = function(){
           });
 
   function mouseClick() {
-    var ele = document.getElementById(this.firstChild.getAttribute('data-link'));
+    var eleId = this.firstChild.getAttribute('data-link');
+    var ele = document.getElementById(eleId);
     var timeline = document.getElementById("social-content-parent");
     var h = timeline.getBoundingClientRect().height;
     timeline.scrollTo(0, ele.offsetTop);
-    replaceClass(ele, 'hidden-menu','active-menu');
     //only toggle menu on small screens
     if(window.innerWidth < 768){
       d3.select("#menu-btn").on('click')();
@@ -306,7 +306,8 @@ Map.prototype.enableScrollEvents = function(){
           lastChapterId = currentChapterId;
           currentChapterId = chapter.id;
           replaceClass(chapter,'hidden','active');
-          replaceClass(document.getElementById("#li-" + chapter.id),'hidden','active')
+          var liId = "li-" + chapter.id;
+          replaceClass(document.getElementById(liId), liId ,liId  + '-active')
           chapter.querySelectorAll('.post').forEach(function(marker){
             var markerOn = d3.select('#' + marker.id.split('post-')[1]); //select marker
             d3.select(markerOn).raise(); //raise marker to front
@@ -316,7 +317,8 @@ Map.prototype.enableScrollEvents = function(){
           if(lastChapterId !== -1){
             var lastChapter = document.getElementById(lastChapterId);
             replaceClass(lastChapter,'active','hidden');
-            replaceClass(document.getElementById("#li-" + lastChapterId),'active','hidden');
+            var liId = "li-" + lastChapterId;
+            replaceClass(document.getElementById(liId), liId  + '-active', liId);
             lastChapter.querySelectorAll('.post').forEach(function(marker){
               var markerOff = d3.select('#' + marker.id.split('post-')[1]); //select marker
               markerOff.classed('hidden-marker',true);

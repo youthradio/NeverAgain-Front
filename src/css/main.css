@@ -317,28 +317,50 @@ h4{
 .list-nav span:hover {
   cursor: pointer;
 }
-
-#li-chapter-3 {
+.li-chapter-3:hover {
     color: #bd0026;
 }
-#li-chapter-1  {
+.li-chapter-1:hover  {
     color: #58ACB5;
 }
-#li-chapter-2  {
+.li-chapter-2:hover  {
     color: #fd8559;
 }
-#li-chapter-4 {
+.li-chapter-4:hover{
     color: #9FCD5E;
 }
-#li-chapter-5 {
+.li-chapter-5:hover {
     color: #FBC35D;
 }
-#li-chapter-6 {
+.li-chapter-6:hover {
     color: #FD8559;
 }
-#li-chapter-7 {
+.li-chapter-7:hover {
     color: #A61543;
 }
+
+.li-chapter-3-active {
+    color: #bd0026;
+}
+.li-chapter-1-active {
+    color: #58ACB5;
+}
+.li-chapter-2-active {
+    color: #fd8559;
+}
+.li-chapter-4-active{
+    color: #9FCD5E;
+}
+.li-chapter-5-active {
+    color: #FBC35D;
+}
+.li-chapter-6-active {
+    color: #FD8559;
+}
+.li-chapter-7-active {
+    color: #A61543;
+}
+
 
 
 .states {
