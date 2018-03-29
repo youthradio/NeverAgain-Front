@@ -236,7 +236,7 @@ Map.prototype.loadTimeline = function(){
     replaceClass(ele, 'hidden-menu','active-menu');
     //only toggle menu on small screens
     if(window.innerWidth < 768){
-      d3.select("#menu-btn").click();
+      d3.select("#menu-btn").on('click')();
     };
   }
   self.chapters.exit().remove();
