@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot --inline --config webpack.dev.js",
+    "start": "webpack-dev-server --mode development --hot --inline --config webpack.dev.js --host 192.168.42.89",
     "build": "webpack --mode production --config webpack.prod.js",
     "prog": "webpack -p --progress"
   },
@@ -29,16 +29,13 @@
     "d3-request": "^1.0.6",
     "d3-selection": "^1.3.0",
     "d3-transition": "^1.1.1",
-    "optimize-css-assets-webpack-plugin": "^4.0.0",
     "topojson": "^3.0.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015": "^6.24.1",
     "babel-preset-minify": "^0.3.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
@@ -46,6 +43,7 @@
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.1.0",
     "mini-css-extract-plugin": "^0.2.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
     "style-loader": "^0.20.3",
     "webpack": "^4.2.0",
     "webpack-cli": "^2.0.13",
