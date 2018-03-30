@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --hot --inline --config webpack.dev.js --host 192.168.42.89",
+    "start": "webpack-dev-server --mode development --hot --inline --config webpack.dev.js",
     "build": "webpack --mode production --config webpack.prod.js",
     "prog": "webpack -p --progress"
   },
