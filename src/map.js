@@ -159,7 +159,7 @@ Map.prototype.drawMarkers = function(){
       var timeline = document.getElementById("social-content-parent");
       var h = timeline.getBoundingClientRect().height;
       self.lazyLoadElement(ele);
-      timeline.scrollTo(0, ele.offsetTop);
+      timeline.scrollTop = ele.offsetTop;
       replaceClass(ele, 'hidden','active');
     }
     function mouseOut(d, i) {
@@ -233,7 +233,7 @@ Map.prototype.loadTimeline = function(){
     var ele = document.getElementById(eleId);
     var timeline = document.getElementById("social-content-parent");
     var h = timeline.getBoundingClientRect().height;
-    timeline.scrollTo(0, ele.offsetTop);
+    timeline.scrollTop = ele.offsetTop;
     //only toggle menu on small screens
     if(window.innerWidth < 768){
       d3.select("#menu-btn").on('click')();
@@ -267,7 +267,7 @@ Map.prototype.loadTimeline = function(){
 
               });
   //reaplace tags for lazy loading
-  document.querySelectorAll(".twitter-tweet").forEach(function(ele, i){
+  Array.from(document.querySelectorAll(".twitter-tweet")).forEach(function(ele, i){
     if(i > 2){
      ele.className = "lazy-load";
    }else{
@@ -275,7 +275,7 @@ Map.prototype.loadTimeline = function(){
      self.lazyLoadElement(ele.parentNode);
    }
   });
-  document.querySelectorAll(".instagram-media").forEach(function(ele, i){
+  Array.from(document.querySelectorAll(".instagram-media")).forEach(function(ele, i){
     ele.className = "lazy-load";
     self.lazyLoadElement(ele.parentNode);
   });
@@ -301,14 +301,14 @@ Map.prototype.enableScrollEvents = function(){
     var box = this;
     var h = box.getBoundingClientRect().height;
 
-    this.querySelectorAll("[data-social=chapter]").forEach(function(chapter){
+    Array.from(this.querySelectorAll("[data-social=chapter]")).forEach(function(chapter){
         if(self.isElementOnScreen(box, chapter, h/2) && currentChapterId !==  chapter.id){
           lastChapterId = currentChapterId;
           currentChapterId = chapter.id;
           replaceClass(chapter,'hidden','active');
           var liId = "li-" + chapter.id;
           replaceClass(document.getElementById(liId), liId ,liId  + '-active')
-          chapter.querySelectorAll('.post').forEach(function(marker){
+          Array.from(chapter.querySelectorAll('.post')).forEach(function(marker){
             var markerOn = d3.select('#' + marker.id.split('post-')[1]); //select marker
             d3.select(markerOn).raise(); //raise marker to front
             markerOn.classed('hidden-marker',false);
@@ -319,14 +319,14 @@ Map.prototype.enableScrollEvents = function(){
             replaceClass(lastChapter,'active','hidden');
             var liId = "li-" + lastChapterId;
             replaceClass(document.getElementById(liId), liId  + '-active', liId);
-            lastChapter.querySelectorAll('.post').forEach(function(marker){
+            Array.from(lastChapter.querySelectorAll('.post')).forEach(function(marker){
               var markerOff = d3.select('#' + marker.id.split('post-')[1]); //select marker
               markerOff.classed('hidden-marker',true);
               markerOff.classed('active',false);
             });
           }
         }
-        chapter.querySelectorAll('.post').forEach(function(visibleEle){
+        Array.from(chapter.querySelectorAll('.post')).forEach(function(visibleEle){
           if(self.isElementOnScreen(box, visibleEle, h/2) && currentPostId !==  visibleEle.id){
             lastPostId = currentPostId;
             currentPostId = visibleEle.id;
@@ -415,7 +415,7 @@ d3.select("#menu-btn").on("click", function(){
 //util
 // parse values to array for transform modes, scale, transform,etc
 function getTransform(str, mode){
-   var value = str.match(new RegExp(mode + "\\(([^)]+)\\)"))[1].split(",");
+   var value = str.match(new RegExp(mode + "\\(([^)]+)\\)"))[1].split(/[ ,]+/);
    return value.map(function(e){return Number(e)});
 }
 function setTransform(mode, value){
