@@ -10,7 +10,7 @@
   margin: auto!important;
 }
 .footer{
-  background-color:rgb(28, 35, 56);
+  background-color: #2E2E2E;
   font-family: "Oswald", Sans;
   font-size:1rem;
 }
@@ -48,7 +48,7 @@
 }
 
 #splash-color{
-  background-color:rgba(44, 34, 93, 0.8);
+  background-color: #2E2E2E;
 }
 #splash-title{
   margin-top:125px
@@ -101,7 +101,7 @@
 /*Main Page CSS */
 
 #title{
-  background-color:rgb(44, 55, 89);
+  background-color: #2E2E2E;
 }
 .bg {
 
@@ -164,7 +164,7 @@ a {
 }
 
 .header {
-    background-color:rgb(44, 55, 89);
+    background-color: #2E2E2E;
     text-shadow: 3px 4px 8px #505050;
 }
 
