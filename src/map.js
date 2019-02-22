@@ -393,13 +393,13 @@ var map = new Map({
   height: 600,
   container: d3.select("#map")
 });
-
-//splash page transition
-d3.select('#splash-button').on('click',function(){
+//
+document.addEventListener("DOMContentLoaded", function(e) {
   d3.select("#splash-bg").style("position","absolute")
      .style("top","0px")
      .transition()
-     .duration(1000)
+     .delay(2000)
+     .duration(2000)
      .ease(d3.easeBack)
      .style("top", function(){ return this.offsetHeight + "px" })
      .on("end", function(){
@@ -408,6 +408,7 @@ d3.select('#splash-button').on('click',function(){
        document.getElementById('footer-container').hidden = false;
      });
 });
+
 //enable navbar menu
 d3.select("#menu-btn").on("click", function(){
     d3.select(".navbar-collapse").classed("collapse",!d3.select(".navbar-collapse").classed("collapse"));
