@@ -7,6 +7,9 @@ const CleanPack = new CleanWebpackPlugin();
 const copyAssets = new CopyWebpackPlugin([{
   from: 'src/assets',
   to: 'assets'
+},
+{
+  from: 'src/static',
 }]);
 
 module.exports = {
