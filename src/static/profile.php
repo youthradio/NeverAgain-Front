@@ -1,5 +1,5 @@
-<!-- https://stackoverflow.com/questions/18381710/building-twitter-profile-image-url-with-twitter-user-id -->
 <?php
+// https://stackoverflow.com/questions/18381710/building-twitter-profile-image-url-with-twitter-user-id 
 if (!isset($_GET['id'])) $_GET['id'] = 'twitter';
 $urlget = curl_init();
 curl_setopt($urlget, CURLOPT_URL, 'https://twitter.com/' . $_GET['id'] . '/profile_image?size=normal');
