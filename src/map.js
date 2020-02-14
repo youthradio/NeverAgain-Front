@@ -1,5 +1,6 @@
 import d3 from "./d3";
 import * as topojson from "topojson";
+import posts from "./posts.json";
 
 const MARKER_S_MIN = 0.07;
 const MARKER_S_MAX = 0.15;
@@ -73,12 +74,11 @@ Map.prototype.loadData = function() {
 
   d3.queue()
     .defer(d3.json, "assets/data/us-light.json") //load us map data
-    .defer(d3.json, "https://neveragain.youthradio.org/api/posts") //fetch data form api
-    .await(function(error, us, data) {
+    .await(function(error, us) {
       if (error) return console.log(error);
       self.isDataLoaded = true;
       self.drawMap(us);
-      self.data = data;
+      self.data = posts;
       self.loadTimeline();
     });
 };
@@ -333,9 +333,10 @@ Map.prototype.loadTimeline = function() {
       .html(function(post) {
         var top = "<h4>" + post.geo.suburb + " " + post.geo.state + "</h4>";
         if (post.social[0].type == "twitter") {
+          const username = post.social[0].url.split("status")[0].split("/")[3];
           var twtPofileURL =
-            "https://neveragain.youthradio.org/api/twitter/" +
-            post.social[0].url.split("status")[0].split("/")[3];
+            `http://yr.media/neveragain/profile.php?id=${username}`;
+
           var twtEmbed = post.social[0].embed.split(/(>)/);
           twtEmbed.splice(
             2,
@@ -373,7 +374,7 @@ Map.prototype.enableScrollEvents = function() {
   //scroll events
   var scrollEvent = d3.select(window).on("wheel.zoom", mouseWheelScrool);
   function mouseWheelScrool(e) {
-    d3.event.preventDefault();
+    // d3.event.preventDefault();
     var ele = document.getElementById("social-content-parent");
     ele.scrollTop += d3.event.deltaY;
   }
@@ -536,22 +537,12 @@ var map = new Map({
 });
 //
 document.addEventListener("DOMContentLoaded", function(e) {
-  d3.select("#splash-bg")
-    .style("position", "absolute")
-    .style("top", "0px")
-    .transition()
-    .delay(2000)
-    .duration(2000)
-    .ease(d3.easeBack)
-    .style("top", function() {
-      return this.offsetHeight + "px";
-    })
-    .on("end", function() {
-      this.style.display = "none";
+
+
       map.start();
       document.getElementById("footer-container").hidden = false;
+
     });
-});
 
 //enable navbar menu
 d3.select("#menu-btn").on("click", function() {
