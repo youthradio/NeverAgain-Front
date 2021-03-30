@@ -17,7 +17,7 @@ const SCRIPT = {
   }
 };
 
-var Map = function(cfg) {
+var Map = function (cfg) {
   this.width = cfg.width;
   this.height = cfg.height;
   this.container = cfg.container;
@@ -28,12 +28,10 @@ var Map = function(cfg) {
     .translate([this.width / 2, this.height / 2]);
   this.path = d3.geoPath(this.projection);
   this.isDataLoaded = false;
-  this.setup();
-  this.loadData();
 };
 
 //setup svg container and responsive container
-Map.prototype.setup = function() {
+Map.prototype.setup = function () {
   this.svg.attr("width", this.width).attr("height", this.height);
 
   this.svg
@@ -51,7 +49,7 @@ Map.prototype.setup = function() {
 };
 
 //responsive container resize
-Map.prototype.resize = function() {
+Map.prototype.resize = function () {
   var targetWidth = parseInt(this.container.node().parentNode.clientWidth);
   this.svg.attr("width", targetWidth);
   this.svg.attr("height", Math.round(targetWidth / this.aspect));
@@ -69,42 +67,26 @@ Map.prototype.resize = function() {
   document.getElementById("social-content-parent").style.height = newHeight;
 };
 
-Map.prototype.loadData = function() {
+Map.prototype.loadData = async function () {
   var self = this;
 
-  d3.queue()
-    .defer(d3.json, "assets/data/us-light.json") //load us map data
-    .await(function(error, us) {
-      if (error) return console.log(error);
+  return fetch("assets/data/us-light.json")
+    .then(d => d.json())
+    .then(us => {
       self.isDataLoaded = true;
       self.drawMap(us);
       self.data = posts;
       self.loadTimeline();
     });
 };
-Map.prototype.start = function() {
-  var self = this;
+Map.prototype.start = async function () {
+  this.setup();
+  await this.loadData();
+  this.drawMarkers();
 
-  d3.queue()
-    .defer(function(callback) {
-      checkLoadedData(); //wait all data to be load
-      function checkLoadedData() {
-        setTimeout(function() {
-          if (self.isDataLoaded) {
-            callback(null);
-          } else {
-            checkLoadedData();
-          }
-        }, 5);
-      }
-    })
-    .await(function(error) {
-      if (error) throw error;
-      self.drawMarkers(); //then show markers
-    });
 };
 
-Map.prototype.drawMap = function(us) {
+Map.prototype.drawMap = function (us) {
   this.svg
     .append("g")
     .selectAll(".states")
@@ -117,7 +99,7 @@ Map.prototype.drawMap = function(us) {
   this.svg
     .append("path")
     .datum(
-      topojson.mesh(us, us.objects.states, function(a, b) {
+      topojson.mesh(us, us.objects.states, function (a, b) {
         return a !== b;
       })
     )
@@ -125,34 +107,34 @@ Map.prototype.drawMap = function(us) {
     .attr("d", this.path);
 };
 
-Map.prototype.drawMarkers = function() {
+Map.prototype.drawMarkers = function () {
   var self = this;
   var n = 0;
   this.markers = this.svg
     .append("g")
     .selectAll(".marker")
     .data(
-      self.data.posts.filter(function(e) {
+      self.data.posts.filter(function (e) {
         return e.geo ? (e.geo.geo[0] || e.geo.geo[1]) != 0 : false;
       })
     )
     .enter()
     .append("path")
     .attr("d", MARKER_PATH)
-    .attr("id", function(e) {
+    .attr("id", function (e) {
       return "id-" + e.slug;
     })
-    .attr("class", function(e) {
+    .attr("class", function (e) {
       return "marker marker-" + e.category;
     })
-    .attr("data-loc", function(e) {
+    .attr("data-loc", function (e) {
       return e.geo.suburb + " " + e.geo.state;
     })
     .on("mouseover", mouseOver)
     .on("mouseout", mouseOut)
     .on("click", mouseClick)
 
-    .attr("transform", function(post) {
+    .attr("transform", function (post) {
       return (
         "translate(" +
         self.projection(post.geo.geo)[0] +
@@ -169,7 +151,7 @@ Map.prototype.drawMarkers = function() {
     .ease(d3.easeBounce)
     .duration(1500)
 
-    .attr("transform", function(post) {
+    .attr("transform", function (post) {
       return (
         "translate(" +
         self.projection(post.geo.geo)[0] +
@@ -182,10 +164,10 @@ Map.prototype.drawMarkers = function() {
         ")"
       );
     })
-    .each(function() {
+    .each(function () {
       ++n;
     })
-    .on("end", function() {
+    .on("end", function () {
       d3.select(this).classed("hidden-marker", true);
       if (!--n) self.enableScrollEvents(); //enable scroll events afer markers fixed
     });
@@ -201,7 +183,7 @@ Map.prototype.drawMarkers = function() {
     d3.select(this).attr(
       "transform",
       setTransform("translate", getTransform(transform, "translate")) +
-        setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX])
+      setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX])
     );
     d3.select(this).raise();
   }
@@ -221,12 +203,12 @@ Map.prototype.drawMarkers = function() {
     d3.select(this).attr(
       "transform",
       setTransform("translate", getTransform(transform, "translate")) +
-        setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN])
+      setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN])
     );
     d3.select(this).raise();
   }
 };
-Map.prototype.toggleToolTip = function(mode, pos, text) {
+Map.prototype.toggleToolTip = function (mode, pos, text) {
   var self = this;
   if (mode) {
     self.tooltip
@@ -244,7 +226,7 @@ Map.prototype.toggleToolTip = function(mode, pos, text) {
       .style("opacity", 0);
   }
 };
-Map.prototype.loadTimeline = function() {
+Map.prototype.loadTimeline = function () {
   var self = this;
 
   self.chapters = d3
@@ -257,13 +239,13 @@ Map.prototype.loadTimeline = function() {
   self.chapters
     .enter()
     .append("div")
-    .attr("id", function(e) {
+    .attr("id", function (e) {
       return e.key;
     })
     .attr("data-social", "chapter")
-    .each(function(e, i) {
+    .each(function (e, i) {
       //each chapter
-      d3.select(this).attr("class", function() {
+      d3.select(this).attr("class", function () {
         if (i > 0 && i < self.chapters.enter().size() - 1) {
           return "hidden";
         } else {
@@ -272,7 +254,7 @@ Map.prototype.loadTimeline = function() {
       });
       d3.select("#nav-list-container")
         .append("li")
-        .attr("class", function() {
+        .attr("class", function () {
           if (i > 0 && i < self.chapters.enter().size() - 1) {
             return i > 1 ? "nav-item hidden-menu" : "nav-item active-menu";
           } else {
@@ -288,7 +270,7 @@ Map.prototype.loadTimeline = function() {
     })
     .append("div")
     .attr("class", "chapter-header")
-    .html(function(chapter) {
+    .html(function (chapter) {
       return chapter.body.html;
     });
 
@@ -305,32 +287,32 @@ Map.prototype.loadTimeline = function() {
   }
   self.chapters.exit().remove();
 
-  self.chapters.enter().each(function(chapter) {
+  self.chapters.enter().each(function (chapter) {
     d3.select("#" + chapter.key)
       .selectAll("div")
       .select("div")
       .data(
         self.data.posts
-          .filter(function(e) {
+          .filter(function (e) {
             return e.geo ? (e.geo.geo[0] || e.geo.geo[1]) != 0 : false;
           })
-          .filter(function(e) {
+          .filter(function (e) {
             return e.category === chapter.key;
           })
       )
       .enter()
       .append("div")
       .attr("class", "hidden post my-4 pt-2")
-      .attr("id", function(p) {
+      .attr("id", function (p) {
         var id = p.slug;
         return "post-id-" + id;
       })
-      .attr("data-social", function(post) {
+      .attr("data-social", function (post) {
         if (post.social.length > 0) {
           return post.social[0].type;
         }
       })
-      .html(function(post) {
+      .html(function (post) {
         var top = "<h4>" + post.geo.suburb + " " + post.geo.state + "</h4>";
         if (post.social[0].type == "twitter") {
           const username = post.social[0].url.split("status")[0].split("/")[3];
@@ -349,7 +331,7 @@ Map.prototype.loadTimeline = function() {
       });
   });
   //reaplace tags for lazy loading
-  Array.from(document.querySelectorAll(".twitter-tweet")).forEach(function(
+  Array.from(document.querySelectorAll(".twitter-tweet")).forEach(function (
     ele,
     i
   ) {
@@ -360,7 +342,7 @@ Map.prototype.loadTimeline = function() {
       self.lazyLoadElement(ele.parentNode);
     }
   });
-  Array.from(document.querySelectorAll(".instagram-media")).forEach(function(
+  Array.from(document.querySelectorAll(".instagram-media")).forEach(function (
     ele,
     i
   ) {
@@ -369,7 +351,7 @@ Map.prototype.loadTimeline = function() {
   });
 };
 
-Map.prototype.enableScrollEvents = function() {
+Map.prototype.enableScrollEvents = function () {
   var self = this;
   //scroll events
   var scrollEvent = d3.select(window).on("wheel.zoom", mouseWheelScrool);
@@ -386,12 +368,12 @@ Map.prototype.enableScrollEvents = function() {
 
   document
     .getElementById("social-content-parent")
-    .addEventListener("scroll", function(event) {
+    .addEventListener("scroll", function (event) {
       var box = this;
       var h = box.getBoundingClientRect().height;
 
       Array.from(this.querySelectorAll("[data-social=chapter]")).forEach(
-        function(chapter) {
+        function (chapter) {
           if (
             self.isElementOnScreen(box, chapter, h / 2) &&
             currentChapterId !== chapter.id
@@ -401,7 +383,7 @@ Map.prototype.enableScrollEvents = function() {
             replaceClass(chapter, "hidden", "active");
             var liId = "li-" + chapter.id;
             replaceClass(document.getElementById(liId), liId, liId + "-active");
-            Array.from(chapter.querySelectorAll(".post")).forEach(function(
+            Array.from(chapter.querySelectorAll(".post")).forEach(function (
               marker
             ) {
               var markerOn = d3.select("#" + marker.id.split("post-")[1]); //select marker
@@ -419,7 +401,7 @@ Map.prototype.enableScrollEvents = function() {
                 liId
               );
               Array.from(lastChapter.querySelectorAll(".post")).forEach(
-                function(marker) {
+                function (marker) {
                   var markerOff = d3.select("#" + marker.id.split("post-")[1]); //select marker
                   markerOff.classed("hidden-marker", true);
                   markerOff.classed("active", false);
@@ -427,7 +409,7 @@ Map.prototype.enableScrollEvents = function() {
               );
             }
           }
-          Array.from(chapter.querySelectorAll(".post")).forEach(function(
+          Array.from(chapter.querySelectorAll(".post")).forEach(function (
             visibleEle
           ) {
             if (
@@ -462,7 +444,7 @@ Map.prototype.enableScrollEvents = function() {
                     getTransform(transform, "translate")
                   ) + setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX])
                 )
-                .on("end", function() {
+                .on("end", function () {
                   var markerBox = markerOn.node().getBoundingClientRect();
                   self.toggleToolTip(
                     true,
@@ -506,14 +488,14 @@ Map.prototype.enableScrollEvents = function() {
       ); //loop chapters
     });
 };
-Map.prototype.isElementOnScreen = function(box, visibleEle, position) {
+Map.prototype.isElementOnScreen = function (box, visibleEle, position) {
   var visibleElerec = visibleEle.getBoundingClientRect();
   return (
     box.scrollTop + position >= visibleEle.offsetTop &&
     box.scrollTop + position <= visibleEle.offsetTop + visibleElerec.height
   );
 };
-Map.prototype.lazyLoadElement = function(ele) {
+Map.prototype.lazyLoadElement = function (ele) {
   //create virtual script and force dom to load it
   if (ele.querySelector(".lazy-load") !== null) {
     if (ele.getAttribute("data-social")) {
@@ -535,17 +517,18 @@ var map = new Map({
   height: 600,
   container: d3.select("#map")
 });
+map.start();
+
 //
-document.addEventListener("DOMContentLoaded", function(e) {
+document.addEventListener("DOMContentLoaded", function (e) {
 
 
-      map.start();
-      document.getElementById("footer-container").hidden = false;
+  document.getElementById("footer-container").hidden = false;
 
-    });
+});
 
 //enable navbar menu
-d3.select("#menu-btn").on("click", function() {
+d3.select("#menu-btn").on("click", function () {
   d3.select(".navbar-collapse").classed(
     "collapse",
     !d3.select(".navbar-collapse").classed("collapse")
@@ -555,7 +538,7 @@ d3.select("#menu-btn").on("click", function() {
 // parse values to array for transform modes, scale, transform,etc
 function getTransform(str, mode) {
   var value = str.match(new RegExp(mode + "\\(([^)]+)\\)"))[1].split(/[ ,]+/);
-  return value.map(function(e) {
+  return value.map(function (e) {
     return Number(e);
   });
 }

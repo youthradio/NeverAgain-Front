@@ -1,16 +1,14 @@
 const path = require("path");
-const { CleanWebpackPlugin}  = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanPack = new CleanWebpackPlugin();
 
 
-const copyAssets = new CopyWebpackPlugin([{
-  from: 'src/assets',
-  to: 'assets'
-},
-{
-  from: 'src/static',
-}]);
+const copyAssets = new CopyWebpackPlugin({
+  patterns: [
+    { from: 'src/assets', to: 'assets' },
+    { from: 'src/static' }]
+})
 
 module.exports = {
   entry: ["@babel/polyfill", "./src/index.js"],
@@ -20,18 +18,18 @@ module.exports = {
   },
   module: {
     rules: [{
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader']
-      },
-      // {
-      //   test: /\.(png|svg|jpg|gif)$/,
-      //   use: ['file-loader']
-      // },
-      {
-        test: /\.js$/,
-        exclude: [/node_modules/],
-        loader: "babel-loader"
-      }
+      test: /\.(woff|woff2|eot|ttf|otf)$/,
+      use: ['file-loader']
+    },
+    // {
+    //   test: /\.(png|svg|jpg|gif)$/,
+    //   use: ['file-loader']
+    // },
+    {
+      test: /\.js$/,
+      exclude: [/node_modules/],
+      loader: "babel-loader"
+    }
     ]
   },
   plugins: [

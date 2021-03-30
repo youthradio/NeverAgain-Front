@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -22,11 +22,7 @@ const extractCSS = new MiniCssExtractPlugin({
   filename: "[name].css",
   chunkFilename: "[id].css"
 });
-const terserPlugin = new TerserPlugin({
-   cache: true,
-   parallel: true,
-   sourceMap: true
-});
+const terserPlugin = new TerserPlugin();
 const defineMode = new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production')
 });
