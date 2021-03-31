@@ -64,7 +64,7 @@ Map.prototype.resize = function () {
     var newHeight =
       "calc(100vh - " + document.getElementById("title").offsetHeight + "px";
   }
-  document.getElementById("social-content-parent").style.height = newHeight;
+  document.getElementById("social-content").style.height = newHeight;
 };
 
 Map.prototype.loadData = async function () {
@@ -172,40 +172,40 @@ Map.prototype.drawMarkers = function () {
       if (!--n) self.enableScrollEvents(); //enable scroll events afer markers fixed
     });
 
-  function mouseOver(e, i) {
-    d3.event.stopPropagation();
+  function mouseOver(event, d) {
+    event.stopPropagation();
     self.toggleToolTip(
       true,
-      [d3.event.pageX, d3.event.pageY],
-      e.geo.suburb + " " + e.geo.state
+      [event.pageX, event.pageY],
+      d.geo.suburb + " " + d.geo.state
     );
-    var transform = d3.select(this).attr("transform");
-    d3.select(this).attr(
+    var transform = d3.select(event.target).attr("transform");
+    d3.select(event.target).attr(
       "transform",
       setTransform("translate", getTransform(transform, "translate")) +
       setTransform("scale", [MARKER_S_MAX, MARKER_S_MAX])
     );
-    d3.select(this).raise();
+    d3.select(d).raise();
   }
-  function mouseClick(e, i) {
-    d3.event.stopPropagation();
-    var ele = document.getElementById("post-id-" + e.slug);
-    var timeline = document.getElementById("social-content-parent");
+  function mouseClick(event, d) {
+    event.stopPropagation();
+    var ele = document.getElementById("post-id-" + d.slug);
+    var timeline = document.getElementById("social-content");
     var h = timeline.getBoundingClientRect().height;
     self.lazyLoadElement(ele);
     timeline.scrollTop = ele.offsetTop;
     replaceClass(ele, "hidden", "active");
   }
-  function mouseOut(d, i) {
-    d3.event.stopPropagation();
+  function mouseOut(event, d) {
+    event.stopPropagation();
     self.toggleToolTip(false);
-    var transform = d3.select(this).attr("transform");
-    d3.select(this).attr(
+    var transform = d3.select(event.target).attr("transform");
+    d3.select(event.target).attr(
       "transform",
       setTransform("translate", getTransform(transform, "translate")) +
       setTransform("scale", [MARKER_S_MIN, MARKER_S_MIN])
     );
-    d3.select(this).raise();
+    d3.select(event.target).raise();
   }
 };
 Map.prototype.toggleToolTip = function (mode, pos, text) {
@@ -243,7 +243,7 @@ Map.prototype.loadTimeline = function () {
       return e.key;
     })
     .attr("data-social", "chapter")
-    .each(function (e, i) {
+    .each(function (e, i, node) {
       //each chapter
       d3.select(this).attr("class", function () {
         if (i > 0 && i < self.chapters.enter().size() - 1) {
@@ -277,7 +277,7 @@ Map.prototype.loadTimeline = function () {
   function mouseClick() {
     var eleId = this.firstChild.getAttribute("data-link");
     var ele = document.getElementById(eleId);
-    var timeline = document.getElementById("social-content-parent");
+    var timeline = document.getElementById("social-content");
     var h = timeline.getBoundingClientRect().height;
     timeline.scrollTop = ele.offsetTop;
     //only toggle menu on small screens
@@ -355,10 +355,10 @@ Map.prototype.enableScrollEvents = function () {
   var self = this;
   //scroll events
   var scrollEvent = d3.select(window).on("wheel.zoom", mouseWheelScrool);
-  function mouseWheelScrool(e) {
+  function mouseWheelScrool(event) {
     // d3.event.preventDefault();
-    var ele = document.getElementById("social-content-parent");
-    ele.scrollTop += d3.event.deltaY;
+    var ele = document.getElementById("social-content");
+    ele.scrollTop += event.deltaY;
   }
 
   var currentPostId = -1;
@@ -367,7 +367,7 @@ Map.prototype.enableScrollEvents = function () {
   var lastChapterId = -1;
 
   document
-    .getElementById("social-content-parent")
+    .getElementById("social-content")
     .addEventListener("scroll", function (event) {
       var box = this;
       var h = box.getBoundingClientRect().height;
